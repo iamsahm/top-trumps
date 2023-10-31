@@ -17,6 +17,10 @@ describe("Game", () => {
         const game = new Game();
         expect(game.gameOver).toEqual(false);
     });
+    it("should construct with a null value for leadPlayer", () => {
+        const game = new Game();
+        expect(game.leadPlayer).toEqual(null);
+    });
     describe("populateDeck", () => {
         it("should have a populate deck method", () => {
             const game = new Game();
@@ -73,6 +77,19 @@ describe("Game", () => {
             const game = new Game();
             expect(game.start).toBeDefined();
         });
+        it("should call the populateDeck, shuffle, deal and setLeadPlayer methods", () => {
+            const game = new Game();
+            game.addPlayer({ name: "test" });
+            game.populateDeck = jest.fn();
+            game.shuffle = jest.fn();
+            game.deal = jest.fn();
+            game.setLeadPlayer = jest.fn();
+            game.start();
+            expect(game.populateDeck).toHaveBeenCalled();
+            expect(game.shuffle).toHaveBeenCalled();
+            expect(game.deal).toHaveBeenCalled();
+            expect(game.setLeadPlayer).toHaveBeenCalled();
+        });
     });
     describe("addPlayer", () => {
         it("should have a method to add players", () => {
@@ -106,6 +123,15 @@ describe("Game", () => {
             expect(game.players).toEqual([player]);
         });
     });
+    describe("setLeadPlayer", () => {
+        it("sets the lead player to the argument passed in", () => {
+            const game = new Game();
+            const player = { name: "test" };
+            game.addPlayer(player);
+            game.setLeadPlayer("test");
+            expect(game.leadPlayer).toEqual("test");
+        });
+    });
     describe("game over", () => {
         it("should have a method to determine if the game is over", () => {
             const game = new Game();
@@ -122,6 +148,21 @@ describe("Game", () => {
             game.players[1].hand = [];
             game.players[2].hand = [];
             expect(game.isGameOver()).toEqual(true);
+        });
+    });
+    describe("round winner", () => {
+        it("should have a method to determine the round winner", () => {
+            const game = new Game();
+            expect(game.roundWinner).toBeDefined();
+        });
+        it("should take arguments for the player's index and the index of the card they chose", () => {
+            const game = new Game();
+            game.addPlayer({ name: "test" });
+            game.addPlayer({ name: "test2" });
+            game.start();
+            expect(typeof game.roundWinner("syntax", [0, 0], [1, 0])).toBe(
+                "number"
+            );
         });
     });
 });
