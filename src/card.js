@@ -6,7 +6,8 @@ class Card {
         portability = 0,
         community = 0,
         longevity = 0,
-        ecosystem = 0
+        ecosystem = 0,
+        fact = ""
     ) {
         if (typeof name !== "string") {
             throw new Error("Name must be a string");
@@ -18,6 +19,7 @@ class Card {
         this.community = community;
         this.longevity = longevity;
         this.ecosystem = ecosystem;
+        this.fact = fact;
     }
 }
 
