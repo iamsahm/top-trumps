@@ -13,6 +13,10 @@ describe("Game", () => {
         const game = new Game();
         expect(game.players).toEqual([]);
     });
+    it("should construct with a boolean for isGameOver", () => {
+        const game = new Game();
+        expect(game.isGameOver).toEqual(false);
+    });
     describe("populateDeck", () => {
         it("should have a populate deck method", () => {
             const game = new Game();
@@ -100,6 +104,23 @@ describe("Game", () => {
             expect(game.players).toEqual([player]);
             game.addPlayer(player);
             expect(game.players).toEqual([player]);
+        });
+    });
+    describe("game over", () => {
+        it("should have a method to determine if the game is over", () => {
+            const game = new Game();
+            expect(game.isGameOver).toBeDefined();
+        });
+        it("should return true if all but one player has no cards", () => {
+            const game = new Game();
+            game.addPlayer({ name: "test" });
+            game.addPlayer({ name: "test2" });
+            game.addPlayer({ name: "test3" });
+            game.addPlayer({ name: "test4" });
+            for (let i = 0; i < game.players.length - 1; i++) {
+                game.players[i].hand = [];
+            }
+            expect(game.isGameOver()).toEqual(true);
         });
     });
 });

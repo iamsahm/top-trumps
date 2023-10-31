@@ -6,6 +6,7 @@ class Game {
     constructor() {
         this.deck = [];
         this.players = [];
+        this.isGameOver = false;
     }
     addPlayer(player) {
         if (typeof player !== "object") {
@@ -50,6 +51,18 @@ class Game {
                 )
             );
         });
+    }
+    isGameOver() {
+        let activePlayers = 0;
+        for (let i = 0; i < this.players.length; i++) {
+            if (this.players[i].hand.length > 0) {
+                activePlayers++;
+            }
+        }
+        if (activePlayers < 2) {
+            this.isGameOver = true;
+        }
+        return this.isGameOver;
     }
 }
 
