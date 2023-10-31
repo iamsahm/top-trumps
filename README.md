@@ -13,7 +13,7 @@ This is a simple top trumps game based on programming languages. The game is pla
 
 ## Technologies
 
-It's written in vanilla Javascript with CSS.
+It's written in node and packaged with webpack. The tests are written in jest.
 
 ## Process
 

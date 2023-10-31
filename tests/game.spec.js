@@ -15,7 +15,7 @@ describe("Game", () => {
     });
     it("should construct with a boolean for isGameOver", () => {
         const game = new Game();
-        expect(game.isGameOver).toEqual(false);
+        expect(game.gameOver).toEqual(false);
     });
     describe("populateDeck", () => {
         it("should have a populate deck method", () => {
@@ -117,9 +117,10 @@ describe("Game", () => {
             game.addPlayer({ name: "test2" });
             game.addPlayer({ name: "test3" });
             game.addPlayer({ name: "test4" });
-            for (let i = 0; i < game.players.length - 1; i++) {
-                game.players[i].hand = [];
-            }
+            game.start();
+            game.players[0].hand = [];
+            game.players[1].hand = [];
+            game.players[2].hand = [];
             expect(game.isGameOver()).toEqual(true);
         });
     });
