@@ -7,10 +7,7 @@ const playerNameInput = document.getElementById("player-name");
 const game = new Game();
 
 function updatePlayerList() {
-    // Get the player list element from the DOM
     const playerList = document.getElementById("player-list");
-
-    // Clear the existing list before adding players to prevent duplicates
     playerList.innerHTML = "";
 
     // Create a new list item for each player and append it to the player list
@@ -25,9 +22,34 @@ addPlayerForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const playerName = playerNameInput.value;
-
+    if (!playerName) {
+        return;
+    }
     game.addPlayer({ name: playerName });
     updatePlayerList();
 
     playerNameInput.value = "";
 });
+
+const endSetup = document.getElementById("end-game-setup");
+endSetup.addEventListener("click", () => {
+    game.start();
+    for (player of game.players) {
+        console.log(player.name);
+        showHand(player);
+    }
+});
+
+function showHand(player) {
+    const hand = document.getElementById("hand");
+    hand.innerHTML = "";
+
+    player.hand.forEach((card) => {
+        const listItem = document.createElement("button");
+        listItem.textContent = Object.values(card).join(", ");
+        listItem.addEventListener("click", () => {
+            console.log(card);
+        });
+        hand.appendChild(listItem);
+    });
+}
