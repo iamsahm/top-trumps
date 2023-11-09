@@ -5,21 +5,13 @@ describe("Game", () => {
     it("should be defined", () => {
         expect(Game).toBeDefined();
     });
-    it("should construct with an empty deck", () => {
+    it("should construct with an empty deck, players array, boolean isGameOver, null leadPlayer, null roundAttribute", () => {
         const game = new Game();
         expect(game.deck).toEqual([]);
-    });
-    it("should construct with an empty players array", () => {
-        const game = new Game();
         expect(game.players).toEqual([]);
-    });
-    it("should construct with a boolean for isGameOver", () => {
-        const game = new Game();
         expect(game.gameOver).toEqual(false);
-    });
-    it("should construct with a null value for leadPlayer", () => {
-        const game = new Game();
         expect(game.leadPlayer).toEqual(null);
+        expect(game.roundAttribute).toEqual(null);
     });
     describe("populateDeck", () => {
         it("should have a populate deck method", () => {
@@ -48,6 +40,26 @@ describe("Game", () => {
             );
         });
     });
+
+    describe("reset", () => {
+        it("should have a method to reset the game", () => {
+            const game = new Game();
+            expect(game.reset).toBeDefined();
+        });
+        it("should reset the deck, players, gameover and lead player", () => {
+            const game = new Game();
+            game.populateDeck();
+            game.addPlayer({ name: "test" });
+            game.addPlayer({ name: "test2" });
+            game.start();
+            game.reset();
+            expect(game.deck).toEqual([]);
+            expect(game.players).toEqual([]);
+            expect(game.gameOver).toEqual(false);
+            expect(game.leadPlayer).toEqual(null);
+        });
+    });
+
     describe("shuffle", () => {
         it("should randomize the order of the deck", () => {
             const game = new Game();
@@ -91,6 +103,42 @@ describe("Game", () => {
             expect(game.setLeadPlayer).toHaveBeenCalled();
         });
     });
+
+    describe("setRoundAttribute", () => {
+        it("should have a method to set the round attribute", () => {
+            const game = new Game();
+            expect(game.setRoundAttribute).toBeDefined();
+        });
+        it("should set the round attribute to the argument passed in", () => {
+            const game = new Game();
+            game.setRoundAttribute("syntax");
+            expect(game.roundAttribute).toEqual("syntax");
+        });
+    });
+    describe("playCard", () => {
+        it("should have a method to play a card", () => {
+            const game = new Game();
+            expect(game.playCard).toBeDefined();
+        });
+        it("should remove the card from the player's hand", () => {
+            const game = new Game();
+            game.addPlayer({ name: "test" });
+            game.start();
+            const card = game.players[0].hand[0];
+            game.playCard(0, 0);
+            expect(game.players[0].hand).not.toContain(card);
+        });
+        it("should add the card to the pot", () => {
+            const game = new Game();
+            game.addPlayer({ name: "test" });
+            game.start();
+            expect(game.pot).toEqual([]);
+            const card = game.players[0].hand[0];
+            game.playCard(0, 0);
+            expect(game.pot).toContain(card);
+        });
+    });
+
     describe("addPlayer", () => {
         it("should have a method to add players", () => {
             const game = new Game();
@@ -132,7 +180,7 @@ describe("Game", () => {
             expect(game.leadPlayer).toEqual("test");
         });
     });
-    describe("game over", () => {
+    describe("isGameOver", () => {
         it("should have a method to determine if the game is over", () => {
             const game = new Game();
             expect(game.isGameOver).toBeDefined();
@@ -162,6 +210,27 @@ describe("Game", () => {
             game.start();
             expect(typeof game.roundWinner("syntax", [0, 0], [1, 0])).toBe(
                 "number"
+            );
+        });
+    });
+    describe("assign winnings", () => {
+        it("should have a method to assign the winnings to the winning player", () => {
+            const game = new Game();
+            expect(game.assignWinnings).toBeDefined();
+        });
+        it("should take argument for the winning player and add the pot to their hand", () => {
+            const game = new Game();
+            game.addPlayer({ name: "test" });
+            game.addPlayer({ name: "test1" });
+            game.start();
+            const beforeWinningsHandLength = game.players[0].hand.length;
+            const card = game.players[0].hand[0];
+            game.playCard(0, 0);
+            game.playCard(1, 0);
+            game.assignWinnings(0);
+            const afterWinningsHandLength = game.players[0].hand.length;
+            expect(afterWinningsHandLength).toEqual(
+                beforeWinningsHandLength + 1
             );
         });
     });

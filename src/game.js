@@ -8,6 +8,8 @@ class Game {
         this.players = [];
         this.gameOver = false;
         this.leadPlayer = null;
+        this.roundAttribute = null;
+        this.pot = [];
     }
     addPlayer(player) {
         if (typeof player === "object" && !this.players.includes(player)) {
@@ -16,6 +18,9 @@ class Game {
     }
     setLeadPlayer(name) {
         this.leadPlayer = name;
+    }
+    setRoundAttribute(attribute) {
+        this.roundAttribute = attribute;
     }
     start() {
         this.populateDeck();
@@ -66,6 +71,11 @@ class Game {
         this.gameOver = activePlayers < 2;
         return this.gameOver;
     }
+    playCard(player, card) {
+        const playedCard = this.players[player].hand.splice(card, 1)[0];
+        this.pot.push(playedCard);
+    }
+
     roundWinner(attribute, ...turns) {
         let winningTurn = turns[1];
         for (let turn of turns) {
@@ -76,6 +86,16 @@ class Game {
             }
         }
         return winningTurn[0];
+    }
+    reset() {
+        this.deck = [];
+        this.players = [];
+        this.gameOver = false;
+        this.leadPlayer = null;
+    }
+    assignWinnings(winner) {
+        this.players[winner].hand = [...this.players[winner].hand, ...this.pot];
+        this.pot = [];
     }
 }
 
