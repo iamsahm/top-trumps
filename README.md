@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a simple top trumps game based on programming languages. The game is played by two players, each player is dealt a hand of 5 cards. Each card has 5 attributes: syntax, performance, portability, community, longevity and ecosystem. The players take turns to pick an attribute from their card, the player with the highest value wins the round and takes the opponents card. The game ends when one player has all the cards.
+This is a simple top trumps game based on programming languages. The deck is 32 cards
 
 ## Installation
 
@@ -18,16 +18,16 @@ It's written in node and packaged with webpack. The tests are written in jest.
 ## Process
 
 -   Write a mockup
-    -   of the board
-    -   of the game logic
+    -   ~~of the board~~
+    -   ~~of the game logic~~
     -   of the game flow
     -   of the computer player
     -   of a user-input form for card updates
 -   Write the game logic
-    -   Create a deck of cards
-    -   Shuffle the deck
-    -   Deal the cards
-    -   Create a player
+    -   ~~Create a deck of cards~~
+    -   Shuffle the deck~~
+    -   Deal the cards~~
+    -   ~~Create a player~~
     -   Create a computer player
     -   Create a board
     -   Create a game

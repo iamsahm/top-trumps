@@ -11,6 +11,7 @@ class Game {
         this.roundAttribute = null;
         this.pot = [];
     }
+
     addPlayer(player) {
         if (typeof player === "object" && !this.players.includes(player)) {
             this.players.push(player);
@@ -77,15 +78,14 @@ class Game {
     }
 
     roundWinner(attribute, ...turns) {
-        let winningTurn = turns[1];
-        for (let turn of turns) {
-            const player = this.players[turn[0]];
-            const card = player.hand[turn[1]];
-            if (card[attribute] > winningTurn[1][attribute]) {
-                winningTurn = turn;
-            }
-        }
-        return winningTurn[0];
+        console.log(turns, "turns");
+        const attributeValues = turns.map((turn) => {
+            const [player, card] = turn;
+            return [player, card[attribute]];
+        });
+        return attributeValues.reduce((highest, current) =>
+            current[1] > highest[1] ? current : highest
+        )[0];
     }
     reset() {
         this.deck = [];

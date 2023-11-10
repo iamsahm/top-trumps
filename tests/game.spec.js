@@ -175,9 +175,11 @@ describe("Game", () => {
         it("sets the lead player to the argument passed in", () => {
             const game = new Game();
             const player = { name: "test" };
+            const player2 = { name: "test2" };
             game.addPlayer(player);
-            game.setLeadPlayer("test");
-            expect(game.leadPlayer).toEqual("test");
+            game.addPlayer(player2);
+            game.setLeadPlayer("test2");
+            expect(game.leadPlayer).toEqual("test2");
         });
     });
     describe("isGameOver", () => {
@@ -211,6 +213,21 @@ describe("Game", () => {
             expect(typeof game.roundWinner("syntax", [0, 0], [1, 0])).toBe(
                 "number"
             );
+        });
+        it("should return the index of the winning player", () => {
+            const game = new Game();
+            game.addPlayer({ name: "test" });
+            game.addPlayer({ name: "test2" });
+            game.start();
+            game.players[0].hand[0]["syntax"] = 10;
+            game.players[1].hand[0]["syntax"] = 1;
+            expect(
+                game.roundWinner(
+                    "syntax",
+                    [0, game.players[0].hand[0]],
+                    [1, game.players[1].hand[0]]
+                )
+            ).toEqual(0);
         });
     });
     describe("assign winnings", () => {
