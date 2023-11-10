@@ -1,4 +1,4 @@
-const Player = require("../src/player");
+const Player = require("./src/player");
 
 describe("Player", () => {
     it("should be defined", () => {

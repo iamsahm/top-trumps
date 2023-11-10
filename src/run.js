@@ -26,51 +26,58 @@ addPlayerForm.addEventListener("submit", (event) => {
     updatePlayerList();
 
     playerNameInput.value = "";
+    console.log(game);
 });
 
 const endSetup = document.getElementById("end-game-setup");
+const gameSetup = document.getElementById("game-setup");
 endSetup.addEventListener("click", () => {
     game.start();
-    endSetup.disabled = true;
-    addPlayerForm.disabled = true;
+    gameSetup.style.display = "none";
+    playRound();
 });
 
 function playRound() {
-    const leadPlayer = game.players.find(
-        (player) => player.name === game.leadPlayer
-    );
-    let playedCards = [];
-    showHand(leadPlayer);
-    showAttributeSelection();
+    if (game.isGameOver()) {
+        // get the winner by finding the player who has cards in their hand
+        const winner = game.players.find((player) => player.hand.length > 0);
+        const gameResultsDiv = document.getElementById("game-results");
+        gameResultsDiv.innerHTML = `<h2>${winner.name} wins!</h2>`;
+    } else {
+        const leadPlayer = game.players.find(
+            (player) => player.name === game.leadPlayer
+        );
 
-    for (let i = 0; i < game.players.length; i++) {
-        const player = game.players[i];
-        if (player.name !== game.leadPlayer) {
-            const card = player.hand[0];
-            const attribute = game.roundAttribute;
-            const content = document.createElement("p");
-            content.textContent = `${player.name}: ${card[attribute]}`;
-            const hand = document.getElementById("hand");
-            hand.appendChild(content);
+        showCard(leadPlayer);
+        showAttributeSelection();
+
+        for (let i = 0; i < game.players.length; i++) {
+            const player = game.players[i];
+            if (player.name !== game.leadPlayer) {
+                const card = player.hand[0];
+                const attribute = game.roundAttribute;
+                const content = document.createElement("p");
+                content.textContent = `${player.name}: ${card[attribute]}`;
+                const hand = document.getElementById("hand");
+                hand.appendChild(content);
+            }
         }
     }
 }
 
-function showHand(player) {
+function showCard(player) {
     const hand = document.getElementById("hand");
     hand.innerHTML = "";
-    player.hand.forEach((card) => {
-        const listItem = document.createElement("div");
-        const attributes = Object.keys(card);
-        attributes.forEach((attribute) => {
-            const content = document.createElement("p");
-            content.textContent = `${
-                attribute.charAt(0).toUpperCase() + attribute.slice(1)
-            }: ${card[attribute]}`;
-            listItem.appendChild(content);
-        });
-        hand.appendChild(listItem);
-    });
+    const card = player.hand[0];
+    const cardDiv = document.createElement("div");
+    cardDiv.classList.add("card");
+    for (let i = 0; i < Object.keys(card).length; i++) {
+        const attribute = Object.keys(card)[i];
+        const content = document.createElement("p");
+        content.textContent = `${attribute}: ${card[attribute]}`;
+        cardDiv.appendChild(content);
+    }
+    hand.appendChild(cardDiv);
 }
 
 const resetGame = document.getElementById("reset-game");

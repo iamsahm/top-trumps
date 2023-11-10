@@ -41,7 +41,11 @@ It's written in node and packaged with webpack. The tests are written in jest.
 
 ### Wins
 
+Game logic seems to be working ok!
+
 ### Blockers
+
+I'm not sure how to manage the DOM update. I think I can probably manipulate it directly and add/remove elements for different stages of the game but i'll need to test it thoroughly and make sure i'm not missing any game logic this way.
 
 ## Future Features
 
