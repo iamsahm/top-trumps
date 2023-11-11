@@ -1,10 +1,9 @@
 const Game = require("./game");
 
-const addPlayerForm = document.getElementById("add-player-form");
-const playerNameInput = document.getElementById("player-name");
-
 const game = new Game();
 
+const addPlayerForm = document.getElementById("add-player-form");
+const playerNameInput = document.getElementById("player-name");
 function updatePlayerList() {
     const playerList = document.getElementById("player-list");
     playerList.innerHTML = "Player list:";
@@ -32,7 +31,7 @@ const gameResultsDiv = document.getElementById("game-results");
 const gamePlayArea = document.getElementById("game-play-area");
 const gameOutput = document.getElementById("game-output");
 const turnStatus = document.getElementById("turn-status");
-endSetup.addEventListener("click", () => {
+endSetup.addEventListener("click", (event) => {
     game.start();
     gameSetup.style.display = "none";
     gamePlayArea.style.display = "block";
@@ -54,7 +53,6 @@ function runRound() {
 function showCard() {
     const hand = document.getElementById("hand");
     hand.innerHTML = "";
-    console.log(game.players[0].hand);
     const card = game.getDecisionCard();
     const cardDiv = document.createElement("div");
     cardDiv.classList.add("card");

@@ -1,6 +1,7 @@
 {
     "scripts": {
         "test": "jest --watch",
+        "start": "cross-env NODE_ENV=development webpack",
         "build": "webpack",
         "cypress:open": "cypress open"
     },
@@ -9,6 +10,7 @@
     },
     "devDependencies": {
         "copy-webpack-plugin": "^11.0.0",
+        "cross-env": "^7.0.3",
         "cypress": "^13.5.0",
         "html-webpack-plugin": "^5.5.3",
         "webpack": "^5.89.0",
