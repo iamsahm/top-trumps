@@ -3,8 +3,8 @@ class Round {
         this.turns = [];
     }
     addTurn(player, card) {
-        if (typeof player !== "object" || typeof card !== "object") {
-            throw new Error("Turn must be a tuple of two objects");
+        if (typeof player !== "string" || typeof card !== "object") {
+            throw new Error("Turn must be a tuple of a string and an object");
         }
         this.turns.push({ player, card });
     }
@@ -16,7 +16,7 @@ class Round {
             return b.card[attribute] - a.card[attribute];
         });
         if (sortedTurns[0].card[attribute] === sortedTurns[1].card[attribute]) {
-            return null;
+            return false;
         } else {
             return sortedTurns[0].player;
         }
