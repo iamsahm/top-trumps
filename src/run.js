@@ -2,6 +2,7 @@ const Game = require("./game");
 
 const addPlayerForm = document.getElementById("add-player-form");
 const playerNameInput = document.getElementById("player-name");
+1;
 
 const game = new Game();
 
@@ -31,17 +32,18 @@ addPlayerForm.addEventListener("submit", (event) => {
 
 const endSetup = document.getElementById("end-game-setup");
 const gameSetup = document.getElementById("game-setup");
+const gameResultsDiv = document.getElementById("game-results");
+const gamePlayArea = document.getElementById("game-play-area");
 endSetup.addEventListener("click", () => {
     game.start();
     gameSetup.style.display = "none";
+    gamePlayArea.style.display = "block";
     playRound();
 });
 
 function playRound() {
     if (game.isGameOver()) {
-        // get the winner by finding the player who has cards in their hand
         const winner = game.players.find((player) => player.hand.length > 0);
-        const gameResultsDiv = document.getElementById("game-results");
         gameResultsDiv.innerHTML = `<h2>${winner.name} wins!</h2>`;
     } else {
         const leadPlayer = game.players.find(
@@ -57,7 +59,7 @@ function playRound() {
                 const card = player.hand[0];
                 const attribute = game.roundAttribute;
                 const content = document.createElement("p");
-                content.textContent = `${player.name}: ${card[attribute]}`;
+                content.textContent = `${player.name}, it's your turn, choose the attribute you'd like to play!`;
                 const hand = document.getElementById("hand");
                 hand.appendChild(content);
             }
@@ -83,8 +85,8 @@ function showCard(player) {
 const resetGame = document.getElementById("reset-game");
 resetGame.addEventListener("click", () => {
     game.reset();
-    endSetup.disabled = false;
-    addPlayerForm.disabled = false;
+    gameSetup.style.display = "block";
+    gamePlayArea.style.display = "none";
     updatePlayerList();
     const hand = document.getElementById("hand");
     hand.innerHTML = "";

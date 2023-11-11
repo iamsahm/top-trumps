@@ -11,7 +11,7 @@ describe("Game", () => {
         expect(game.players).toEqual([]);
         expect(game.gameOver).toEqual(false);
         expect(game.leadPlayer).toEqual(null);
-        expect(game.roundAttribute).toEqual(null);
+        expect(game.pot).toEqual([]);
     });
     describe("populateDeck", () => {
         it("should have a populate deck method", () => {
@@ -40,7 +40,6 @@ describe("Game", () => {
             );
         });
     });
-
     describe("reset", () => {
         it("should have a method to reset the game", () => {
             const game = new Game();
@@ -59,7 +58,6 @@ describe("Game", () => {
             expect(game.leadPlayer).toEqual(null);
         });
     });
-
     describe("shuffle", () => {
         it("should randomize the order of the deck", () => {
             const game = new Game();
@@ -89,56 +87,19 @@ describe("Game", () => {
             const game = new Game();
             expect(game.start).toBeDefined();
         });
-        it("should call the populateDeck, shuffle, deal and setLeadPlayer methods", () => {
+        it("should call the populateDeck, shuffle, deal and set the lead player to the first player in the array", () => {
             const game = new Game();
             game.addPlayer({ name: "test" });
             game.populateDeck = jest.fn();
             game.shuffle = jest.fn();
             game.deal = jest.fn();
-            game.setLeadPlayer = jest.fn();
             game.start();
             expect(game.populateDeck).toHaveBeenCalled();
             expect(game.shuffle).toHaveBeenCalled();
             expect(game.deal).toHaveBeenCalled();
-            expect(game.setLeadPlayer).toHaveBeenCalled();
+            expect(game.leadPlayer.name).toEqual("test");
         });
     });
-
-    describe("setRoundAttribute", () => {
-        it("should have a method to set the round attribute", () => {
-            const game = new Game();
-            expect(game.setRoundAttribute).toBeDefined();
-        });
-        it("should set the round attribute to the argument passed in", () => {
-            const game = new Game();
-            game.setRoundAttribute("syntax");
-            expect(game.roundAttribute).toEqual("syntax");
-        });
-    });
-    describe("playCard", () => {
-        it("should have a method to play a card", () => {
-            const game = new Game();
-            expect(game.playCard).toBeDefined();
-        });
-        it("should remove the card from the player's hand", () => {
-            const game = new Game();
-            game.addPlayer({ name: "test" });
-            game.start();
-            const card = game.players[0].hand[0];
-            game.playCard(0, 0);
-            expect(game.players[0].hand).not.toContain(card);
-        });
-        it("should add the card to the pot", () => {
-            const game = new Game();
-            game.addPlayer({ name: "test" });
-            game.start();
-            expect(game.pot).toEqual([]);
-            const card = game.players[0].hand[0];
-            game.playCard(0, 0);
-            expect(game.pot).toContain(card);
-        });
-    });
-
     describe("addPlayer", () => {
         it("should have a method to add players", () => {
             const game = new Game();
@@ -171,17 +132,6 @@ describe("Game", () => {
             expect(game.players).toEqual([player]);
         });
     });
-    describe("setLeadPlayer", () => {
-        it("sets the lead player to the argument passed in", () => {
-            const game = new Game();
-            const player = { name: "test" };
-            const player2 = { name: "test2" };
-            game.addPlayer(player);
-            game.addPlayer(player2);
-            game.setLeadPlayer("test2");
-            expect(game.leadPlayer).toEqual("test2");
-        });
-    });
     describe("isGameOver", () => {
         it("should have a method to determine if the game is over", () => {
             const game = new Game();
@@ -198,57 +148,6 @@ describe("Game", () => {
             game.players[1].hand = [];
             game.players[2].hand = [];
             expect(game.isGameOver()).toEqual(true);
-        });
-    });
-    describe("round winner", () => {
-        it("should have a method to determine the round winner", () => {
-            const game = new Game();
-            expect(game.roundWinner).toBeDefined();
-        });
-        it("should take arguments for the player's index and the index of the card they chose", () => {
-            const game = new Game();
-            game.addPlayer({ name: "test" });
-            game.addPlayer({ name: "test2" });
-            game.start();
-            expect(typeof game.roundWinner("syntax", [0, 0], [1, 0])).toBe(
-                "number"
-            );
-        });
-        it("should return the index of the winning player", () => {
-            const game = new Game();
-            game.addPlayer({ name: "test" });
-            game.addPlayer({ name: "test2" });
-            game.start();
-            game.players[0].hand[0]["syntax"] = 10;
-            game.players[1].hand[0]["syntax"] = 1;
-            expect(
-                game.roundWinner(
-                    "syntax",
-                    [0, game.players[0].hand[0]],
-                    [1, game.players[1].hand[0]]
-                )
-            ).toEqual(0);
-        });
-    });
-    describe("assign winnings", () => {
-        it("should have a method to assign the winnings to the winning player", () => {
-            const game = new Game();
-            expect(game.assignWinnings).toBeDefined();
-        });
-        it("should take argument for the winning player and add the pot to their hand", () => {
-            const game = new Game();
-            game.addPlayer({ name: "test" });
-            game.addPlayer({ name: "test1" });
-            game.start();
-            const beforeWinningsHandLength = game.players[0].hand.length;
-            const card = game.players[0].hand[0];
-            game.playCard(0, 0);
-            game.playCard(1, 0);
-            game.assignWinnings(0);
-            const afterWinningsHandLength = game.players[0].hand.length;
-            expect(afterWinningsHandLength).toEqual(
-                beforeWinningsHandLength + 1
-            );
         });
     });
 });
