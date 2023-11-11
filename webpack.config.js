@@ -1,11 +1,27 @@
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-    entry: "./src/run.js", // replace with the path to your main JavaScript file
-    watch: true, // automatically rebuild
+    mode: "production", // "development
+    entry: "./src/run.js",
+    watch: true,
     output: {
         filename: "bundle.js",
         path: path.resolve(__dirname, "dist"),
     },
-    target: "web", // specify the target environment
+    target: "web",
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, "./index.html"),
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, "./src/images/favicon.ico"),
+                    to: "favicon.ico",
+                },
+            ],
+        }),
+    ],
 };

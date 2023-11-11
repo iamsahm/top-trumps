@@ -1,12 +1,16 @@
 {
     "scripts": {
         "test": "jest --watch",
-        "build": "webpack"
+        "build": "webpack",
+        "cypress:open": "cypress open"
     },
     "dependencies": {
         "jest": "^29.7.0"
     },
     "devDependencies": {
+        "copy-webpack-plugin": "^11.0.0",
+        "cypress": "^13.5.0",
+        "html-webpack-plugin": "^5.5.3",
         "webpack": "^5.89.0",
         "webpack-cli": "^5.1.4"
     }

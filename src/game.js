@@ -1,6 +1,6 @@
 const languages = require("./data/languages.json");
-const Card = require("./Card");
-const Round = require("./Round");
+const Card = require("./card");
+const Round = require("./round");
 
 class Game {
     constructor() {
@@ -75,6 +75,7 @@ class Game {
 
     playRound() {
         const round = new Round();
+
         const activePlayers = this.players.filter(
             (player) => player.hand.length > 0
         );

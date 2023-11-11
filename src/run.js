@@ -30,6 +30,7 @@ const endSetup = document.getElementById("end-game-setup");
 const gameSetup = document.getElementById("game-setup");
 const gameResultsDiv = document.getElementById("game-results");
 const gamePlayArea = document.getElementById("game-play-area");
+const gameOutput = document.getElementById("game-output");
 const turnStatus = document.getElementById("turn-status");
 endSetup.addEventListener("click", () => {
     game.start();
@@ -45,7 +46,8 @@ function runRound() {
         showAttributeSelection(game.getDecisionCard());
         turnStatus.textContent = `It's ${game.leadPlayer}'s turn, choose your attribute!`;
     } else {
-        gameResultsDiv.textContent = `Game over! ${game.gameOver} wins!`;
+        gameResultsDiv.textContent = `Game over! ${game.leadPlayer} wins!`;
+        gameOutput.style.display = "none";
     }
 }
 

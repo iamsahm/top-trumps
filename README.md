@@ -8,8 +8,8 @@ This is a simple top trumps game based on programming languages. The deck is 32 
 
 1. Clone the repository
 2. Run `npm install` to install dependencies
-3. Run `npm start` to start the server
-4. Open `http://localhost:3000` in your browser
+3. Run `npm run build` to build the page
+4. Open the index.html with live server
 
 ## Technologies
 
@@ -45,7 +45,7 @@ Game logic seems to be working ok!
 
 ### Blockers
 
-I'm not sure how to manage the DOM update. I think I can probably manipulate it directly and add/remove elements for different stages of the game but i'll need to test it thoroughly and make sure i'm not missing any game logic this way.
+~~I'm not sure how to manage the DOM update. I think I can probably manipulate it directly and add/remove elements for different stages of the game but i'll need to test it thoroughly and make sure i'm not missing any game logic this way.~~
 
 ## Future Features
 
