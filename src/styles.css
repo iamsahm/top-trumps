@@ -38,13 +38,6 @@
     --border-radius-medium: 0.5rem;
     --border-radius-large: 1rem;
 }
-/* *,
-*::before,
-*::after {
-    box-sizing: border-box;
-    margin: 0;
-    font-weight: normal;
-} */
 
 body {
     height: 100vh;
@@ -54,7 +47,6 @@ body {
     color: var(--color-text);
     background: var(--color-background);
     /* transition: color 0.5s, background-color 0.5s; */
-    line-height: 2rem;
     /* font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
         sans-serif; */
@@ -65,10 +57,25 @@ body {
 }
 
 #game-setup {
+    position: absolute;
+    top: 5rem;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
-    justify-content: center;
+}
+
+#game-setup div,
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#game-setup input {
+    margin: 0.5rem;
 }
 
 button {
@@ -98,10 +105,6 @@ text {
     font-size: 1rem;
     font-weight: 600;
     line-height: 1.5rem;
-    text-align: center;
-    text-decoration: none;
-    user-select: none;
-    white-space: nowrap;
 }
 
 .card {
@@ -154,7 +157,7 @@ div#game-output {
     justify-content: center;
 }
 
-.attribute-buttons {
+#hand .attributes {
     display: flex;
     flex-direction: column;
     border-color: var(--color-border);
@@ -167,10 +170,6 @@ button.attribute-button {
     flex-direction: row;
     justify-content: space-between;
     border-radius: 0;
-}
-.attribute-buttons {
-    display: flex;
-    flex-direction: column;
 }
 
 h3.card-title,

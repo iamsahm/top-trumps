@@ -30,6 +30,16 @@ export function showCard(card, divName) {
     fact.setAttribute("id", `${divName}-fact`);
     cardDiv.appendChild(fact);
     hand.appendChild(cardDiv);
-    const maxHeight = fact.offsetHeight;
-    adjustFontSize(fact, maxHeight);
+}
+
+export function adjustFontSize(containerID) {
+    const container = document.getElementById(containerID);
+    const maxHeight = container.offsetHeight;
+    while (container.scrollHeight > maxHeight) {
+        let style = window
+            .getComputedStyle(container, null)
+            .getPropertyValue("font-size");
+        let fontSize = parseFloat(style);
+        container.style.fontSize = fontSize - 2 + "px";
+    }
 }
