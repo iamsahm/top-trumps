@@ -2,7 +2,13 @@
     --vt-c-white: #ffffff;
     --vt-c-white-soft: #f8f8f8;
     --vt-c-white-mute: #f2f2f2;
-
+    --vt-c-wood: #8b4513;
+    --vt-c-leather: #a0522d;
+    --vt-c-metal: #b0c4de;
+    --vt-c-fabric: #d2b48c;
+    --vt-c-plastic: #778899;
+    --vt-c-glass: #5f9ea0;
+    --vt-c-ceramic: #ffdead;
     --vt-c-black: #181818;
     --vt-c-black-soft: #222222;
     --vt-c-black-mute: #282828;
@@ -11,18 +17,15 @@
     --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
     --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
     --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
-
     --vt-c-text-light-1: var(--vt-c-indigo);
     --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
     --vt-c-text-dark-1: var(--vt-c-white);
     --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
-    --color-background: var(--vt-c-white);
-    --color-background-soft: var(--vt-c-white-soft);
-    --color-background-mute: var(--vt-c-white-mute);
-
+    --color-background: var(--vt-c-fabric);
+    --color-background-soft: var(--vt-c-leather);
+    --color-background-mute: var(--vt-c-ceramic);
     --color-border: var(--vt-c-divider-light-2);
     --color-border-hover: var(--vt-c-divider-light-1);
-
     --color-heading: var(--vt-c-text-light-1);
     --color-text: var(--vt-c-text-light-1);
 }
@@ -75,9 +78,9 @@ body {
 }
 
 button {
-    background: var(--color-background);
-    border: 1px solid var(--color-border);
-    border-radius: 0.25rem;
+    background: var(--vt-c-white);
+    border: none;
+    border-radius: 0.5rem;
     color: var(--color-text);
     cursor: pointer;
     font-size: 1rem;
