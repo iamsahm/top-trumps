@@ -27,7 +27,5 @@ jobs:
                   node-version: ${{ matrix.node-version }}
                   cache: "npm"
             - run: npm ci
-            - name: Print directory structure
-              run: ls -R
             - run: npm run build --if-present --env.NODE_ENV=production
             - run: npm test
