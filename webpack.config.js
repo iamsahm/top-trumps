@@ -16,7 +16,7 @@ module.exports = {
     watch: isDevelopment,
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, "index.html"),
+            template: path.resolve(__dirname, "./src/index.html"),
         }),
         new CopyWebpackPlugin({
             patterns: [
