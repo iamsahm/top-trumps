@@ -52,3 +52,11 @@ Game logic seems to be working ok!
 -   Add a user-input form for card updates
 -   Add a user-input form for adding new cards
 -   Add a vote feature for card changes?
+-   Show the played cards in the round
+    -   Abstract the card render into a separate component
+    -   use the card render to create new renders for the played cards
+-   timer limits the decision time
+    -   set a timer and make a random choice if the player doesn't choose in time
+-   current hand count
+    -   display the current length of hand for each player
+    -   strikethrough the player name if they have no cards left

@@ -12,7 +12,8 @@ class Game {
         this.roundAttribute = null;
     }
     addPlayer(player) {
-        if (typeof player === "object" && !this.players.includes(player)) {
+        const playerNames = this.players.map((player) => player.name);
+        if (typeof player === "object" && !playerNames.includes(player.name)) {
             this.players.push(player);
         }
     }
@@ -72,10 +73,8 @@ class Game {
             throw new Error("Attribute must be a string");
         }
     }
-
     playRound() {
         const round = new Round();
-
         const activePlayers = this.players.filter(
             (player) => player.hand.length > 0
         );

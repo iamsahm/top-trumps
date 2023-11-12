@@ -129,9 +129,10 @@ describe("Game", () => {
         it("should not allow duplicate players", () => {
             const game = new Game();
             const player = { name: "test" };
+            const player2 = { name: "test", hand: [] };
             game.addPlayer(player);
             expect(game.players).toEqual([player]);
-            game.addPlayer(player);
+            game.addPlayer(player2);
             expect(game.players).toEqual([player]);
         });
     });
