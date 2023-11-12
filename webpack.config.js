@@ -3,7 +3,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const mode = process.env.NODE_ENV ? process.env.NODE_ENV : "production";
-const isDevelopment = mode === "development";
 
 module.exports = {
     mode: mode,
@@ -13,7 +12,12 @@ module.exports = {
         path: path.resolve(__dirname, "dist"),
     },
     target: "web",
-    watch: isDevelopment,
+    devServer: {
+        static: {
+            directory: path.join(__dirname, "src"),
+            watch: true,
+        },
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: "./src/index.HTML",
