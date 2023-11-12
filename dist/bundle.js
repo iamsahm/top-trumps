@@ -19,6 +19,17 @@ eval("class Card {\r\n    constructor(\r\n        name,\r\n        syntax = 0,\r
 
 /***/ }),
 
+/***/ "./src/cardRenders.js":
+/*!****************************!*\
+  !*** ./src/cardRenders.js ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   showCard: () => (/* binding */ showCard)\n/* harmony export */ });\nfunction showCard(card, divName) {\r\n    const hand = document.getElementById(divName);\r\n    hand.innerHTML = \"\";\r\n    const cardDiv = document.createElement(\"div\");\r\n    cardDiv.classList.add(\"card\");\r\n    const title = document.createElement(\"h3\");\r\n    title.textContent = card.name;\r\n    title.classList.add(\"card-title\");\r\n    cardDiv.appendChild(title);\r\n    const attributes = document.createElement(\"div\");\r\n    attributes.classList.add(\"attributes\");\r\n    for (let i = 1; i < Object.keys(card).length - 1; i++) {\r\n        const attribute = Object.keys(card)[i];\r\n        const attributeDiv = document.createElement(\"div\");\r\n        const attributeNameDiv = document.createElement(\"div\");\r\n        attributeNameDiv.textContent = attribute;\r\n        attributeNameDiv.classList.add(\"attribute-name\");\r\n        attributeDiv.appendChild(attributeNameDiv);\r\n        const attributeValueDiv = document.createElement(\"div\");\r\n        attributeValueDiv.textContent = card[attribute];\r\n        attributeValueDiv.classList.add(\"attribute-value\");\r\n        attributeDiv.appendChild(attributeValueDiv);\r\n        attributeDiv.classList.add(\"attribute\");\r\n        attributes.appendChild(attributeDiv);\r\n    }\r\n    cardDiv.appendChild(attributes);\r\n    const fact = document.createElement(\"p\");\r\n    fact.textContent = card.fact;\r\n    fact.classList.add(\"fact\");\r\n    fact.setAttribute(\"id\", `${divName}-fact`);\r\n    cardDiv.appendChild(fact);\r\n    hand.appendChild(cardDiv);\r\n    const maxHeight = fact.offsetHeight;\r\n    adjustFontSize(fact, maxHeight);\r\n}\r\n\n\n//# sourceURL=webpack:///./src/cardRenders.js?");
+
+/***/ }),
+
 /***/ "./src/game.js":
 /*!*********************!*\
   !*** ./src/game.js ***!
@@ -43,9 +54,20 @@ eval("class Round {\r\n    constructor() {\r\n        this.turns = [];\r\n    }\
 /*!********************!*\
   !*** ./src/run.js ***!
   \********************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("const Game = __webpack_require__(/*! ./game */ \"./src/game.js\");\r\n\r\nconst game = new Game();\r\n\r\nconst addPlayerForm = document.getElementById(\"add-player-form\");\r\nconst playerNameInput = document.getElementById(\"player-name\");\r\nfunction updatePlayerList() {\r\n    const playerList = document.getElementById(\"player-list\");\r\n    playerList.innerHTML = \"Player list:\";\r\n    game.players.forEach((player) => {\r\n        const listItem = document.createElement(\"li\");\r\n        listItem.textContent = player.name;\r\n        playerList.appendChild(listItem);\r\n    });\r\n}\r\nconst endSetup = document.getElementById(\"end-game-setup\");\r\n\r\naddPlayerForm.addEventListener(\"submit\", (event) => {\r\n    event.preventDefault();\r\n    const playerName = playerNameInput.value;\r\n    if (!playerName) {\r\n        return;\r\n    }\r\n    game.addPlayer({ name: playerName });\r\n    updatePlayerList();\r\n    playerNameInput.value = \"\";\r\n    if (game.players.length > 1) {\r\n        endSetup.style.display = \"block\";\r\n        resetGame.style.display = \"block\";\r\n    }\r\n});\r\n\r\nconst gameSetup = document.getElementById(\"game-setup\");\r\nconst gameResultsDiv = document.getElementById(\"game-results\");\r\nconst gamePlayArea = document.getElementById(\"game-play-area\");\r\nconst gameOutput = document.getElementById(\"game-output\");\r\nconst turnStatus = document.getElementById(\"turn-status\");\r\nendSetup.addEventListener(\"click\", () => {\r\n    game.start();\r\n    gameSetup.style.display = \"none\";\r\n    gamePlayArea.style.display = \"block\";\r\n    runRound();\r\n});\r\n\r\nfunction runRound() {\r\n    game.gameOver = game.isGameOver();\r\n    updatePlayerScoreResults();\r\n    if (!game.gameOver) {\r\n        showCard(game.leadPlayer);\r\n        turnStatus.textContent = `It's ${game.leadPlayer}'s turn, choose your attribute!`;\r\n    } else {\r\n        gameResultsDiv.textContent = `Game over! ${game.leadPlayer} wins!`;\r\n        gameOutput.style.display = \"none\";\r\n    }\r\n}\r\n\r\nfunction showCard() {\r\n    const hand = document.getElementById(\"hand\");\r\n    hand.innerHTML = \"\";\r\n    const card = game.getDecisionCard();\r\n    const cardDiv = document.createElement(\"div\");\r\n    cardDiv.classList.add(\"card\");\r\n    const title = document.createElement(\"h3\");\r\n    title.textContent = card.name;\r\n    title.classList.add(\"card-title\");\r\n    cardDiv.appendChild(title);\r\n    const attributeButtons = document.createElement(\"div\");\r\n    attributeButtons.classList.add(\"attribute-buttons\");\r\n    for (let i = 1; i < Object.keys(card).length - 1; i++) {\r\n        const attribute = Object.keys(card)[i];\r\n        const button = document.createElement(\"button\");\r\n        button.addEventListener(\"click\", () => {\r\n            game.chooseAttribute(attribute);\r\n            game.playRound();\r\n            runRound();\r\n        });\r\n        const attributeNameDiv = document.createElement(\"div\");\r\n        attributeNameDiv.textContent = attribute;\r\n        attributeNameDiv.classList.add(\"attribute-name\");\r\n        button.appendChild(attributeNameDiv);\r\n        const attributeValueDiv = document.createElement(\"div\");\r\n        attributeValueDiv.textContent = card[attribute];\r\n        attributeValueDiv.classList.add(\"attribute-value\");\r\n        button.appendChild(attributeValueDiv);\r\n        button.classList.add(\"attribute-button\");\r\n        attributeButtons.appendChild(button);\r\n    }\r\n    cardDiv.appendChild(attributeButtons);\r\n    const fact = document.createElement(\"p\");\r\n    fact.textContent = card.fact;\r\n    fact.classList.add(\"fact\");\r\n    cardDiv.appendChild(fact);\r\n    hand.appendChild(cardDiv);\r\n    const maxHeight = fact.offsetHeight;\r\n    adjustFontSize(fact, maxHeight);\r\n}\r\n\r\nfunction adjustFontSize(container, maxHeight) {\r\n    while (container.scrollHeight > maxHeight) {\r\n        let style = window\r\n            .getComputedStyle(container, null)\r\n            .getPropertyValue(\"font-size\");\r\n        let fontSize = parseFloat(style);\r\n        container.style.fontSize = fontSize - 2 + \"px\";\r\n    }\r\n}\r\n\r\nfunction updatePlayerScoreResults() {\r\n    gameResultsDiv.innerHTML = \"\";\r\n    const playerScoresDiv = document.createElement(\"div\");\r\n    playerScoresDiv.classList.add(\"player-scores\");\r\n    playerScoresDiv.innerHTML = \"Player scores:\";\r\n    game.players.forEach((player) => {\r\n        const listItem = document.createElement(\"li\");\r\n        listItem.textContent = `${player.name}: ${player.hand.length}`;\r\n        if (player.hand.length === 0) {\r\n            listItem.classList.add(\"lost\");\r\n        }\r\n        playerScoresDiv.appendChild(listItem);\r\n    });\r\n    gameResultsDiv.appendChild(playerScoresDiv);\r\n}\r\n\r\nconst resetGame = document.getElementById(\"reset-game\");\r\nresetGame.addEventListener(\"click\", () => {\r\n    game.reset();\r\n    gameSetup.style.display = \"block\";\r\n    gamePlayArea.style.display = \"none\";\r\n    updatePlayerList();\r\n    const hand = document.getElementById(\"hand\");\r\n    hand.innerHTML = \"\";\r\n});\r\n\n\n//# sourceURL=webpack:///./src/run.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _cardRenders__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cardRenders */ \"./src/cardRenders.js\");\n/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles.css */ \"./src/styles.css\");\n/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_styles_css__WEBPACK_IMPORTED_MODULE_1__);\nconst Game = __webpack_require__(/*! ./game */ \"./src/game.js\");\r\n\r\n\r\n\r\nconst game = new Game();\r\n\r\nconst addPlayerForm = document.getElementById(\"add-player-form\");\r\nconst playerNameInput = document.getElementById(\"player-name\");\r\nfunction updatePlayerList() {\r\n    const playerList = document.getElementById(\"player-list\");\r\n    playerList.innerHTML = \"Player list:\";\r\n    game.players.forEach((player) => {\r\n        const listItem = document.createElement(\"li\");\r\n        listItem.textContent = player.name;\r\n        playerList.appendChild(listItem);\r\n    });\r\n}\r\nconst endSetup = document.getElementById(\"end-game-setup\");\r\n\r\naddPlayerForm.addEventListener(\"submit\", (event) => {\r\n    event.preventDefault();\r\n    const playerName = playerNameInput.value;\r\n    if (!playerName) {\r\n        return;\r\n    }\r\n    game.addPlayer({ name: playerName });\r\n    updatePlayerList();\r\n    playerNameInput.value = \"\";\r\n    if (game.players.length > 1) {\r\n        endSetup.style.display = \"block\";\r\n        resetGame.style.display = \"block\";\r\n    }\r\n});\r\n\r\nconst gameSetup = document.getElementById(\"game-setup\");\r\nconst gameResultsDiv = document.getElementById(\"game-results\");\r\nconst gamePlayArea = document.getElementById(\"game-play-area\");\r\nconst gameOutput = document.getElementById(\"game-output\");\r\nconst turnStatus = document.getElementById(\"turn-status\");\r\nendSetup.addEventListener(\"click\", () => {\r\n    game.start();\r\n    gameSetup.style.display = \"none\";\r\n    gamePlayArea.style.display = \"block\";\r\n    runRound();\r\n});\r\n\r\nfunction runRound() {\r\n    game.gameOver = game.isGameOver();\r\n    updatePlayerScoreResults();\r\n    if (!game.gameOver) {\r\n        (0,_cardRenders__WEBPACK_IMPORTED_MODULE_0__.showCard)(game.getDecisionCard(), \"hand\");\r\n        adjustFontSize();\r\n        turnStatus.textContent = `It's ${game.leadPlayer}'s turn, choose your attribute!`;\r\n    } else {\r\n        gameResultsDiv.textContent = `Game over! ${game.leadPlayer} wins!`;\r\n        gameOutput.style.display = \"none\";\r\n    }\r\n}\r\n\r\nfunction adjustFontSize(containerID) {\r\n    const container = document.getElementById(containerID);\r\n    const maxHeight = container.offsetHeight;\r\n    while (fact.scrollHeight > maxHeight) {\r\n        let style = window\r\n            .getComputedStyle(container, null)\r\n            .getPropertyValue(\"font-size\");\r\n        let fontSize = parseFloat(style);\r\n        container.style.fontSize = fontSize - 2 + \"px\";\r\n    }\r\n}\r\n\r\nfunction updatePlayerScoreResults() {\r\n    gameResultsDiv.innerHTML = \"\";\r\n    const playerScoresDiv = document.createElement(\"div\");\r\n    playerScoresDiv.classList.add(\"player-scores\");\r\n    playerScoresDiv.innerHTML = \"Player scores:\";\r\n    game.players.forEach((player) => {\r\n        const listItem = document.createElement(\"li\");\r\n        listItem.textContent = `${player.name}: ${player.hand.length}`;\r\n        if (player.hand.length === 0) {\r\n            listItem.classList.add(\"lost\");\r\n        }\r\n        playerScoresDiv.appendChild(listItem);\r\n    });\r\n    gameResultsDiv.appendChild(playerScoresDiv);\r\n}\r\n\r\nconst resetGame = document.getElementById(\"reset-game\");\r\nresetGame.addEventListener(\"click\", () => {\r\n    game.reset();\r\n    gameSetup.style.display = \"block\";\r\n    gamePlayArea.style.display = \"none\";\r\n    updatePlayerList();\r\n    const hand = document.getElementById(\"hand\");\r\n    hand.innerHTML = \"\";\r\n});\r\n\n\n//# sourceURL=webpack:///./src/run.js?");
+
+/***/ }),
+
+/***/ "./src/styles.css":
+/*!************************!*\
+  !*** ./src/styles.css ***!
+  \************************/
+/***/ (() => {
+
+eval("throw new Error(\"Module parse failed: Unexpected token (1:0)\\nYou may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders\\n> :root {\\n|     --vt-c-white: #ffffff;\\n|     --vt-c-white-soft: #f8f8f8;\");\n\n//# sourceURL=webpack:///./src/styles.css?");
 
 /***/ }),
 
@@ -85,6 +107,47 @@ eval("module.exports = JSON.parse('[{\"name\":\"Python\",\"syntax\":70,\"perform
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
 /******/ 	
 /************************************************************************/
 /******/ 	

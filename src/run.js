@@ -1,4 +1,6 @@
 const Game = require("./game");
+import { showCard } from "./cardRenders";
+import "./styles.css";
 
 const game = new Game();
 
@@ -46,7 +48,8 @@ function runRound() {
     game.gameOver = game.isGameOver();
     updatePlayerScoreResults();
     if (!game.gameOver) {
-        showCard(game.leadPlayer);
+        showCard(game.getDecisionCard(), "hand");
+        adjustFontSize();
         turnStatus.textContent = `It's ${game.leadPlayer}'s turn, choose your attribute!`;
     } else {
         gameResultsDiv.textContent = `Game over! ${game.leadPlayer} wins!`;
@@ -54,49 +57,10 @@ function runRound() {
     }
 }
 
-function showCard() {
-    const hand = document.getElementById("hand");
-    hand.innerHTML = "";
-    const card = game.getDecisionCard();
-    const cardDiv = document.createElement("div");
-    cardDiv.classList.add("card");
-    const title = document.createElement("h3");
-    title.textContent = card.name;
-    title.classList.add("card-title");
-    cardDiv.appendChild(title);
-    const attributeButtons = document.createElement("div");
-    attributeButtons.classList.add("attribute-buttons");
-    for (let i = 1; i < Object.keys(card).length - 1; i++) {
-        const attribute = Object.keys(card)[i];
-        const button = document.createElement("button");
-        button.addEventListener("click", () => {
-            game.chooseAttribute(attribute);
-            game.playRound();
-            runRound();
-        });
-        const attributeNameDiv = document.createElement("div");
-        attributeNameDiv.textContent = attribute;
-        attributeNameDiv.classList.add("attribute-name");
-        button.appendChild(attributeNameDiv);
-        const attributeValueDiv = document.createElement("div");
-        attributeValueDiv.textContent = card[attribute];
-        attributeValueDiv.classList.add("attribute-value");
-        button.appendChild(attributeValueDiv);
-        button.classList.add("attribute-button");
-        attributeButtons.appendChild(button);
-    }
-    cardDiv.appendChild(attributeButtons);
-    const fact = document.createElement("p");
-    fact.textContent = card.fact;
-    fact.classList.add("fact");
-    cardDiv.appendChild(fact);
-    hand.appendChild(cardDiv);
-    const maxHeight = fact.offsetHeight;
-    adjustFontSize(fact, maxHeight);
-}
-
-function adjustFontSize(container, maxHeight) {
-    while (container.scrollHeight > maxHeight) {
+function adjustFontSize(containerID) {
+    const container = document.getElementById(containerID);
+    const maxHeight = container.offsetHeight;
+    while (fact.scrollHeight > maxHeight) {
         let style = window
             .getComputedStyle(container, null)
             .getPropertyValue("font-size");
