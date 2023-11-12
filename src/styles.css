@@ -188,3 +188,8 @@ p.fact {
     white-space: normal;
     overflow: hidden;
 }
+
+li.lost {
+    text-decoration: line-through;
+    color: var(--vt-c-text-dark-2);
+}

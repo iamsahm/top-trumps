@@ -113,6 +113,9 @@ function updatePlayerScoreResults() {
     game.players.forEach((player) => {
         const listItem = document.createElement("li");
         listItem.textContent = `${player.name}: ${player.hand.length}`;
+        if (player.hand.length === 0) {
+            listItem.classList.add("lost");
+        }
         playerScoresDiv.appendChild(listItem);
     });
     gameResultsDiv.appendChild(playerScoresDiv);
