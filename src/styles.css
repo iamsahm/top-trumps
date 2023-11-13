@@ -1,29 +1,17 @@
 :root {
     --vt-c-white: #ffffff;
-    --vt-c-white-soft: #f8f8f8;
-    --vt-c-white-mute: #f2f2f2;
-    --vt-c-wood: #8b4513;
-    --vt-c-leather: #a0522d;
+    --vt-c-blue-washed: #e5e5f7;
     --vt-c-metal: #b0c4de;
-    --vt-c-fabric: #d2b48c;
-    --vt-c-plastic: #778899;
-    --vt-c-glass: #5f9ea0;
-    --vt-c-ceramic: #ffdead;
+    --vt-c-grass: #87ce97;
     --vt-c-black: #181818;
-    --vt-c-black-soft: #222222;
-    --vt-c-black-mute: #282828;
     --vt-c-indigo: #2c3e50;
     --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
     --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
-    --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
-    --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
     --vt-c-text-light-1: var(--vt-c-indigo);
     --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
     --vt-c-text-dark-1: var(--vt-c-white);
-    --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
-    --color-background: var(--vt-c-fabric);
-    --color-background-soft: var(--vt-c-leather);
-    --color-background-mute: var(--vt-c-ceramic);
+    --color-background-card: var(--vt-c-blue-washed);
+    --color-background-dark: var(--vt-c-grass);
     --color-border: var(--vt-c-divider-light-2);
     --color-border-hover: var(--vt-c-divider-light-1);
     --color-heading: var(--vt-c-text-light-1);
@@ -32,11 +20,8 @@
     --color-button-hover: var(--vt-c-metal);
     --color-card-details-background: var(--vt-c-white);
     --transition-short: 0.2s;
-    --transition-medium: 0.5s;
-    --transition-long: 1s;
     --border-radius-small: 0.25rem;
     --border-radius-medium: 0.5rem;
-    --border-radius-large: 1rem;
     list-style: none;
 }
 
@@ -48,7 +33,8 @@
 
 body {
     color: var(--color-text);
-    background: var(--color-background);
+    background-color: #e5e5f7;
+
     transition: color 0.5s, background-color 0.5s;
     font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -56,6 +42,58 @@ body {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    background-color: #e3ffe8;
+    background-image: linear-gradient(
+            30deg,
+            #cbffcb 12%,
+            transparent 12.5%,
+            transparent 87%,
+            #cbffcb 87.5%,
+            #cbffcb
+        ),
+        linear-gradient(
+            150deg,
+            #cbffcb 12%,
+            transparent 12.5%,
+            transparent 87%,
+            #cbffcb 87.5%,
+            #cbffcb
+        ),
+        linear-gradient(
+            30deg,
+            #cbffcb 12%,
+            transparent 12.5%,
+            transparent 87%,
+            #cbffcb 87.5%,
+            #cbffcb
+        ),
+        linear-gradient(
+            150deg,
+            #cbffcb 12%,
+            transparent 12.5%,
+            transparent 87%,
+            #cbffcb 87.5%,
+            #cbffcb
+        ),
+        linear-gradient(
+            60deg,
+            #cbffcb77 25%,
+            transparent 25.5%,
+            transparent 75%,
+            #cbffcb77 75%,
+            #cbffcb77
+        ),
+        linear-gradient(
+            60deg,
+            #cbffcb77 25%,
+            transparent 25.5%,
+            transparent 75%,
+            #cbffcb77 75%,
+            #cbffcb77
+        );
+    background-size: 38px 67px;
+    background-position: 0 0, 0 0, 19px 33px, 19px 33px, 0 0, 19px 33px;
 }
 
 #game-setup {
@@ -66,8 +104,14 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    background-color: var(--color-background-card);
+    padding: 4em 0;
 }
-
+div#player-list {
+    background-color: var(--vt-c-white);
+    margin: 1rem;
+    padding: 1rem;
+}
 #game-setup div,
 form {
     display: flex;
@@ -105,7 +149,7 @@ button:hover {
 }
 
 .card {
-    background: var(--color-background);
+    background: var(--color-background-card);
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius-small);
     color: var(--color-text);
@@ -131,6 +175,8 @@ div#turn-status {
     padding: 0.5em;
     background: var(--color-background-soft);
     margin: 1em;
+    color: var(--vt-c-white);
+    border-radius: var(--border-radius-small);
 }
 
 button#reset-game {
@@ -271,4 +317,16 @@ button:active {
 }
 button:focus {
     outline: 0;
+}
+
+@media (width < 990px) {
+    div#non-leader-cards {
+        flex-direction: column;
+    }
+    div#game-play-area {
+        display: block;
+    }
+    #lead-player-output {
+        display: block;
+    }
 }
