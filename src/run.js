@@ -19,7 +19,7 @@ function updatePlayerList() {
         playerList.appendChild(listItem);
     });
 }
-const endSetup = document.getElementById("end-game-setup");
+const endSetupButton = document.getElementById("end-game-setup");
 
 addPlayerForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -31,20 +31,20 @@ addPlayerForm.addEventListener("submit", (event) => {
     updatePlayerList();
     playerNameInput.value = "";
     if (game.players.length > 1) {
-        endSetup.style.display = "flex";
+        endSetupButton.style.display = "flex";
         resetGame.style.display = "block";
     }
 });
 
 const gameSetup = document.getElementById("game-setup");
 const gameResultsDiv = document.getElementById("game-results");
-const gamePlayArea = document.getElementById("game-play-area");
-const gameOutput = document.getElementById("game-output");
+const gamePlayAreaDiv = document.getElementById("game-play-area");
+const leadPlayerOutputDiv = document.getElementById("lead-player-output");
 const turnStatus = document.getElementById("turn-status");
-endSetup.addEventListener("click", () => {
+endSetupButton.addEventListener("click", () => {
     game.start();
     gameSetup.style.display = "none";
-    gamePlayArea.style.display = "block";
+    gamePlayAreaDiv.style.display = "block";
     runRound();
 });
 
@@ -59,7 +59,7 @@ function runRound() {
         turnStatus.textContent = `It's ${game.leadPlayer}'s turn, choose your attribute!`;
     } else {
         gameResultsDiv.textContent = `Game over! ${game.leadPlayer} wins!`;
-        gameOutput.style.display = "none";
+        leadPlayerOutputDiv.style.display = "none";
     }
 }
 
@@ -69,9 +69,10 @@ function activateAttributeButtons(card, divID) {
     for (let i = 1; i < Object.keys(card).length - 1; i++) {
         const attribute = Object.keys(card)[i];
         const attributeButton = document.createElement("button");
-        attributeButton.classList.add("attribute-button");
+        attributeButton.classList.add("attribute-button", "sheen");
         attributeButton.addEventListener("click", () => {
             game.chooseAttribute(attribute);
+            showOtherCards();
             game.playRound();
             runRound();
         });
@@ -108,8 +109,34 @@ resetGame.addEventListener("click", () => {
     game.reset();
     gameSetup.style.display = "flex";
     document.getElementById("end-game-setup").style.display = "none";
-    gamePlayArea.style.display = "none";
+    gamePlayAreaDiv.style.display = "none";
     updatePlayerList();
     const hand = document.getElementById("hand");
     hand.innerHTML = "";
 });
+
+function showOtherCards() {
+    if (!document.getElementById("non-leader-cards")) {
+        const nonLeaderCardsDiv = document.createElement("div");
+        nonLeaderCardsDiv.classList.add("non-leader-cards");
+        nonLeaderCardsDiv.id = "non-leader-cards";
+        gamePlayAreaDiv.appendChild(nonLeaderCardsDiv);
+    }
+    const nonLeaderCardsDiv = document.getElementById("non-leader-cards");
+    const activePlayers = game.players.filter(
+        (player) => player.hand.length > 0
+    );
+    const nonLeaderPlayers = activePlayers.filter(
+        (player) => player.name !== game.leadPlayer
+    );
+    const nonLeaderCards = nonLeaderPlayers.map((player) => player.hand[0]);
+    nonLeaderCardsDiv.innerHTML = "";
+
+    nonLeaderCards.forEach((card, index) => {
+        const cardDiv = document.createElement("div");
+        cardDiv.id = `non-leader-card-${index}`;
+        nonLeaderCardsDiv.appendChild(cardDiv);
+        showCard(card, `non-leader-card-${index}`);
+        adjustFontSize(`non-leader-card-${index}-fact`);
+    });
+}
