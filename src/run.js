@@ -44,7 +44,7 @@ const turnStatus = document.getElementById("turn-status");
 endSetupButton.addEventListener("click", () => {
     game.start();
     gameSetup.style.display = "none";
-    gamePlayAreaDiv.style.display = "block";
+    gamePlayAreaDiv.style.display = "flex";
     runRound();
 });
 
