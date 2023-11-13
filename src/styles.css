@@ -2,7 +2,7 @@
     --vt-c-white: #ffffff;
     --vt-c-blue-washed: #e5e5f7;
     --vt-c-metal: #b0c4de;
-    --vt-c-grass: #87ce97;
+    --vt-c-grass: #4b7054;
     --vt-c-black: #181818;
     --vt-c-indigo: #2c3e50;
     --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
@@ -11,6 +11,7 @@
     --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
     --vt-c-text-dark-1: var(--vt-c-white);
     --color-background-card: var(--vt-c-blue-washed);
+    --color-background-light: var(--vt-c-white);
     --color-background-dark: var(--vt-c-grass);
     --color-border: var(--vt-c-divider-light-2);
     --color-border-hover: var(--vt-c-divider-light-1);
@@ -107,11 +108,6 @@ body {
     background-color: var(--color-background-card);
     padding: 4em 0;
 }
-div#player-list {
-    background-color: var(--vt-c-white);
-    margin: 1rem;
-    padding: 1rem;
-}
 #game-setup div,
 form {
     display: flex;
@@ -119,12 +115,18 @@ form {
     justify-content: flex-start;
     align-items: center;
 }
+div#player-list {
+    background-color: var(--color-background-light);
+    margin: 1rem;
+    padding: 1rem;
+    display: none;
+}
 #game-setup input {
     margin: 0.5rem;
 }
 
 button {
-    background: var(--vt-c-white);
+    background: var(--color-background-light);
     border: none;
     position: relative;
     overflow: hidden;
@@ -172,11 +174,14 @@ div#hand {
     margin: 0.5em;
 }
 div#turn-status {
+    display: none;
     padding: 0.5em;
     background: var(--color-background-soft);
-    margin: 1em;
-    color: var(--vt-c-white);
+    margin: 2em 0;
+    color: var(--color-text);
     border-radius: var(--border-radius-small);
+    background-color: var(--color-background-card);
+    width: 18rem;
 }
 
 button#reset-game {
@@ -216,15 +221,14 @@ div#non-leader-cards {
 }
 
 div#non-leader-cards > div {
-    margin: 0.5em;
+    margin: 0 0.5rem;
     width: 18rem;
-    height: 27rem;
+    height: 30rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
 }
-
 #game-results {
     bottom: 0;
     left: 0;
@@ -251,6 +255,11 @@ div#non-leader-cards > div {
     border-style: solid;
 }
 
+.attribute {
+    margin: 0.5rem;
+    line-height: 1.5rem;
+}
+
 button.attribute-button,
 .attribute {
     display: flex;
@@ -261,7 +270,7 @@ button.attribute-button,
 
 h3.card-title,
 p.fact {
-    background-color: var(--color-card-details-background);
+    background-color: var(--color-background-light);
     padding: 0.5em;
     border-color: var(--color-border);
     border-width: 0.2rem;

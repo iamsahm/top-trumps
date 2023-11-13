@@ -14,6 +14,7 @@ function updatePlayerList() {
     }
     playerList.innerHTML = "Player list:";
     game.players.forEach((player) => {
+        playerList.style.display = "flex";
         const listItem = document.createElement("li");
         listItem.textContent = player.name;
         playerList.appendChild(listItem);
@@ -57,6 +58,7 @@ function runRound() {
         activateAttributeButtons(game.getDecisionCard(), "hand");
 
         turnStatus.textContent = `It's ${game.leadPlayer}'s turn, choose your attribute!`;
+        turnStatus.style.display = "block";
     } else {
         gameResultsDiv.textContent = `Game over! ${game.leadPlayer} wins!`;
         leadPlayerOutputDiv.style.display = "none";
