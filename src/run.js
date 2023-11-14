@@ -64,7 +64,7 @@ function runRound() {
         adjustFontSize("hand-fact");
         activateAttributeButtons(game.getDecisionCard(), "hand");
 
-        turnStatus.textContent = `It's ${game.leadPlayer}'s turn, choose your attribute!`;
+        turnStatus.textContent = `It's ${game.leadPlayer}'s turn, choose an attribute! If it's higher than the other players' cards, you win the round`;
         turnStatus.style.display = "block";
     } else {
         document.body.innerHTML = "";

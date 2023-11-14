@@ -223,9 +223,6 @@ button#end-game-setup {
     margin: 1rem;
     display: none;
 }
-div#game-play-area {
-    display: flex;
-}
 
 div#attribute-buttons {
     display: flex;
