@@ -108,6 +108,7 @@ function updatePlayerScoreResults() {
 
 const resetGame = document.getElementById("reset-game");
 resetGame.addEventListener("click", () => {
+    //TODO: this doesn't completely reset the game, need to reinitialize the html
     game.reset();
     gameSetup.style.display = "flex";
     document.getElementById("end-game-setup").style.display = "none";

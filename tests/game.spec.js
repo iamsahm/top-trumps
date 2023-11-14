@@ -5,7 +5,7 @@ describe("Game", () => {
     it("should be defined", () => {
         expect(Game).toBeDefined();
     });
-    it("should construct with an empty deck, players array, boolean isGameOver, null leadPlayer, null roundAttribute", () => {
+    it("should construct with an empty deck, players array, boolean isGameOver, null leadPlayer, null roundAttribute, round history array", () => {
         const game = new Game();
         expect(game.deck).toEqual([]);
         expect(game.players).toEqual([]);
@@ -13,6 +13,7 @@ describe("Game", () => {
         expect(game.leadPlayer).toEqual(null);
         expect(game.pot).toEqual([]);
         expect(game.roundAttribute).toEqual(null);
+        expect(game.roundHistory).toEqual([]);
     });
     describe("populateDeck", () => {
         it("should have a populate deck method", () => {
@@ -177,6 +178,32 @@ describe("Game", () => {
             );
         });
     });
+    describe("getActivePlayers", () => {
+        it("returns the players who have cards in their hand", () => {
+            const game = new Game();
+            game.addPlayer({ name: "test" });
+            game.addPlayer({ name: "test2" });
+            game.start();
+            game.players[0].hand = [];
+            expect(game.getActivePlayers()).toEqual([game.players[1]]);
+        });
+    });
+    // describe("returnPreviousRoundResults", () => {
+    //     it("returns the previous round results", () => {
+    //         const game = new Game();
+    //         game.addPlayer({ name: "test" });
+    //         game.addPlayer({ name: "test2" });
+    //         game.start();
+    //         game.players[0].hand[0].syntax = 2;
+    //         game.players[1].hand[0].syntax = 1;
+    //         game.chooseAttribute("syntax");
+    //         game.playRound();
+    //         expect(game.roundHistory.length).toEqual(1);
+    //         expect(game.roundHistory[0].turns.length).toEqual(2);
+    //         expect(game.roundHistory[0].resultString).toEqual(`test wins!`);
+    //     });
+    // });
+
     describe("playRound", () => {
         it("adds the cards to a winner's hand and empties the pot", () => {
             const game = new Game();

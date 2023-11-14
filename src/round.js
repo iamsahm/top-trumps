@@ -1,6 +1,8 @@
 class Round {
     constructor() {
         this.turns = [];
+        this.roundWinner = null;
+        this.roundAttribute = null;
     }
     addTurn(player, card) {
         if (typeof player !== "string" || typeof card !== "object") {
@@ -8,7 +10,13 @@ class Round {
         }
         this.turns.push({ player, card });
     }
-    defineWinner(attribute) {
+    setRoundAttribute(attribute) {
+        if (typeof attribute !== "string") {
+            throw new Error("Attribute must be a string");
+        }
+        this.roundAttribute = attribute;
+    }
+    defineWinner() {
         if (typeof attribute !== "string") {
             throw new Error("Attribute must be a string");
         }

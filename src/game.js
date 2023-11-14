@@ -10,6 +10,7 @@ class Game {
         this.leadPlayer = null;
         this.pot = [];
         this.roundAttribute = null;
+        this.roundHistory = [];
     }
     addPlayer(player) {
         const playerNames = this.players.map((player) => player.name);
@@ -73,6 +74,7 @@ class Game {
             throw new Error("Attribute must be a string");
         }
     }
+
     playRound() {
         const round = new Round();
         const activePlayers = this.players.filter(
@@ -94,6 +96,9 @@ class Game {
             ].hand.concat(this.pot);
             this.pot = [];
         }
+    }
+    getActivePlayers() {
+        return this.players.filter((player) => player.hand.length > 0);
     }
     isGameOver() {
         const activePlayers = this.players.filter(

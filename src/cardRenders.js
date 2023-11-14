@@ -1,8 +1,8 @@
 export function showCard(card, divName) {
-    const hand = document.getElementById(divName);
-    hand.innerHTML = "";
+    const container = document.getElementById(divName);
+    container.innerHTML = "";
     const cardDiv = document.createElement("div");
-    cardDiv.classList.add("card");
+    cardDiv.classList.add("card", `${divName}-card}`);
     const title = document.createElement("h3");
     title.textContent = card.name;
     title.classList.add("card-title");
@@ -29,7 +29,7 @@ export function showCard(card, divName) {
     fact.classList.add("fact");
     fact.setAttribute("id", `${divName}-fact`);
     cardDiv.appendChild(fact);
-    hand.appendChild(cardDiv);
+    container.appendChild(cardDiv);
 }
 
 export function adjustFontSize(containerID) {
