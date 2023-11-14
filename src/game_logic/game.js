@@ -80,7 +80,7 @@ class Game {
             throw new Error("must choose an attribute");
         }
         round.defineWinner();
-        this.roundHistory.push(round.returnHistoryEntry());
+        this.roundHistory.unshift(round.returnHistoryEntry());
 
         this.pot = this.pot.concat(round.returnRoundPot());
         if (round.roundWinner) {

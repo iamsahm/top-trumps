@@ -207,6 +207,15 @@ describe("Game", () => {
             game.playRound("syntax");
             expect(game.roundHistory.length).toEqual(1);
         });
+        it("adds the element to the start of the roundHistory array", () => {
+            game.addPlayer({ name: "test" });
+            game.addPlayer({ name: "test2" });
+            game.start();
+            game.playRound("longevity");
+            game.playRound("syntax");
+            expect(game.roundHistory[0].roundAttribute).toEqual("syntax");
+            expect(game.roundHistory[1].roundAttribute).toEqual("longevity");
+        });
         it("throws an error if no attribute is passed", () => {
             game.addPlayer({ name: "test" });
             game.addPlayer({ name: "test2" });

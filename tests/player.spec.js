@@ -1,4 +1,4 @@
-const Player = require("./src/player");
+const Player = require("../src/game_logic/player");
 
 describe("Player", () => {
     it("should be defined", () => {

@@ -47,8 +47,8 @@ addPlayerForm.addEventListener("submit", (event) => {
 const gameSetup = document.getElementById("game-setup");
 const gameResultsDiv = document.getElementById("game-results");
 const gamePlayAreaDiv = document.getElementById("game-play-area");
-const leadPlayerOutputDiv = document.getElementById("lead-player-output");
 const turnStatus = document.getElementById("turn-status");
+
 endSetupButton.addEventListener("click", () => {
     game.start();
     gameSetup.style.display = "none";
@@ -86,7 +86,7 @@ function activateAttributeButtons(card, divID) {
         attributeButton.classList.add("attribute-button", "sheen");
         attributeButton.addEventListener("click", () => {
             game.playRound(attribute);
-            showOtherCards();
+            showRoundResults();
             runRound();
         });
         const attributeNameDiv = document.createElement("div");
@@ -119,7 +119,6 @@ function updatePlayerScoreResults() {
 
 const resetGame = document.getElementById("reset-game");
 resetGame.addEventListener("click", () => {
-    //TODO: this doesn't completely reset the game, need to reinitialize the html
     game = new Game();
     gameSetup.style.display = "flex";
     document.getElementById("end-game-setup").style.display = "none";
@@ -129,28 +128,39 @@ resetGame.addEventListener("click", () => {
     hand.innerHTML = "";
 });
 
-function showOtherCards() {
-    if (!document.getElementById("non-leader-cards")) {
-        const nonLeaderCardsDiv = document.createElement("div");
-        nonLeaderCardsDiv.classList.add("non-leader-cards");
-        nonLeaderCardsDiv.id = "non-leader-cards";
-        gamePlayAreaDiv.appendChild(nonLeaderCardsDiv);
+function showRoundResults() {
+    // if the div already exists, clear the inner html
+    const existingRoundResultsDiv = document.getElementById("round-results");
+    if (existingRoundResultsDiv) {
+        existingRoundResultsDiv.innerHTML = "";
     }
-    const nonLeaderCardsDiv = document.getElementById("non-leader-cards");
-    const activePlayers = game.players.filter(
-        (player) => player.hand.length > 0
-    );
-    const nonLeaderPlayers = activePlayers.filter(
-        (player) => player.name !== game.leadPlayer
-    );
-    const nonLeaderCards = nonLeaderPlayers.map((player) => player.hand[0]);
-    nonLeaderCardsDiv.innerHTML = "";
+    const roundResultsDiv = document.createElement("dialog");
+    roundResultsDiv.id = "round-results";
+    document.body.appendChild(roundResultsDiv);
 
-    nonLeaderCards.forEach((card, index) => {
+    const roundResultsHeader = document.createElement("h2");
+    roundResultsHeader.textContent = game.roundHistory[0].resultString;
+    roundResultsDiv.appendChild(roundResultsHeader);
+
+    const previousRoundCardsDiv = document.createElement("div");
+    previousRoundCardsDiv.classList.add("previous-round-cards");
+    roundResultsDiv.appendChild(previousRoundCardsDiv);
+
+    game.roundHistory[0].turns.forEach((turn) => {
+        console.log(turn);
         const cardDiv = document.createElement("div");
-        cardDiv.id = `non-leader-card-${index}`;
-        nonLeaderCardsDiv.appendChild(cardDiv);
-        showCard(card, `non-leader-card-${index}`);
-        adjustFontSize(`non-leader-card-${index}-fact`);
+        cardDiv.classList.add("previous-round-card");
+        cardDiv.id = `${turn.player}-card`;
+        previousRoundCardsDiv.appendChild(cardDiv);
+
+        const previousRoundCardHeader = document.createElement("h3");
+        previousRoundCardHeader.textContent = turn.player;
+        cardDiv.appendChild(previousRoundCardHeader);
+
+        showCard(turn.card, `${turn.player}-card`);
     });
+    roundResultsDiv.addEventListener("click", () => {
+        roundResultsDiv.remove();
+    });
+    roundResultsDiv.showModal();
 }

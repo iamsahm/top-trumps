@@ -1,14 +1,6 @@
-import { createDiv } from "../DOMtools.js";
-
 export function showCard(card, divName) {
-    const container = createDiv(
-        "card-container",
-        `${divName}-card-container`,
-        divName,
-        // no text content
-        true,
-        true
-    );
+    const container = document.getElementById(divName);
+
     container.innerHTML = "";
     const cardDiv = document.createElement("div");
     cardDiv.classList.add("card", `${divName}-card`);

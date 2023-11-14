@@ -1,6 +1,6 @@
 // jest test the card component
 
-const Card = require("../src/card");
+const Card = require("../src/game_logic/card");
 
 describe("Card", () => {
     it("should be defined", () => {
