@@ -50,30 +50,40 @@ describe("Round", () => {
             );
         });
     });
-    // describe("returnHistoryEntry", () => {
-    //     it("should return the turns in the turns array and the round winnerr", () => {
-    //         round.addTurn("test", { name: "test", syntax: 1 });
-    //         round.addTurn("test2", { name: "test2", syntax: 2 });
-    //         expect(round.returnHistoryEntry()).toEqual({
-    //             turns: [
-    //                 { player: "test", card: { name: "test", syntax: 1 } },
-    //                 { player: "test2", card: { name: "test2", syntax: 2 } },
-    //             ],
-    //             winner: "test2",
-    //         });
-    //     });
-    //     it("should return the turns in the turns array and null if there is no winner", () => {
-    //         round.addTurn("test", { name: "test", syntax: 2 });
-    //         round.addTurn("test2", { name: "test2", syntax: 2 });
-    //         expect(round.returnHistoryEntry("syntax")).toEqual({
-    //             turns: [
-    //                 { player: "test", card: { name: "test", syntax: 1 } },
-    //                 { player: "test2", card: { name: "test2", syntax: 2 } },
-    //             ],
-    //             winner: null,
-    //         });
-    //     });
-    // });
+    describe("returnHistoryEntry", () => {
+        it("should return the turns in the turns array and the round winnerr", () => {
+            round.addTurn("test", { name: "test", syntax: 1 });
+            round.addTurn("test2", { name: "test2", syntax: 2 });
+            round.setRoundAttribute("syntax");
+            round.defineWinner();
+
+            expect(round.returnHistoryEntry()).toEqual({
+                turns: [
+                    { player: "test2", card: { name: "test2", syntax: 2 } },
+                    { player: "test", card: { name: "test", syntax: 1 } },
+                ],
+                winner: "test2",
+                roundAttribute: "syntax",
+                resultString: "test2 wins!",
+            });
+        });
+        it("should return the turns in the turns array and null if there is no winner", () => {
+            round.addTurn("test", { name: "test", syntax: 2 });
+            round.addTurn("test2", { name: "test2", syntax: 2 });
+            round.setRoundAttribute("syntax");
+            round.defineWinner();
+            expect(round.returnHistoryEntry("syntax")).toEqual({
+                turns: [
+                    { player: "test", card: { name: "test", syntax: 2 } },
+                    { player: "test2", card: { name: "test2", syntax: 2 } },
+                ],
+                winner: null,
+                roundAttribute: "syntax",
+                resultString:
+                    "Tie! The cards are in the pot for the next round.",
+            });
+        });
+    });
     describe("returnRoundPot", () => {
         it("should return the cards in the turns array", () => {
             round.addTurn("test", { name: "test", syntax: 1 });

@@ -1,32 +1,30 @@
 const Game = require("../src/game");
 const languages = require("../src/data/languages.json");
-
+let game;
 describe("Game", () => {
+    beforeEach(() => {
+        game = new Game();
+    });
     it("should be defined", () => {
         expect(Game).toBeDefined();
     });
     it("should construct with an empty deck, players array, boolean isGameOver, null leadPlayer, null roundAttribute, round history array", () => {
-        const game = new Game();
         expect(game.deck).toEqual([]);
         expect(game.players).toEqual([]);
         expect(game.gameOver).toEqual(false);
         expect(game.leadPlayer).toEqual(null);
         expect(game.pot).toEqual([]);
-        expect(game.roundAttribute).toEqual(null);
         expect(game.roundHistory).toEqual([]);
     });
     describe("populateDeck", () => {
         it("should have a populate deck method", () => {
-            const game = new Game();
             expect(game.populateDeck).toBeDefined();
         });
         it("should populate the deck with cards from the languages.json file", () => {
-            const game = new Game();
             game.populateDeck();
             expect(game.deck.length).toEqual(languages.length);
         });
         it("should add card objects to the deck", () => {
-            const game = new Game();
             game.populateDeck();
             expect(game.deck[0]).toEqual(
                 expect.objectContaining({
@@ -44,11 +42,9 @@ describe("Game", () => {
     });
     describe("reset", () => {
         it("should have a method to reset the game", () => {
-            const game = new Game();
             expect(game.reset).toBeDefined();
         });
         it("should reset the deck, players, gameover and lead player", () => {
-            const game = new Game();
             game.populateDeck();
             game.addPlayer({ name: "test" });
             game.addPlayer({ name: "test2" });
@@ -64,7 +60,6 @@ describe("Game", () => {
     });
     describe("shuffle", () => {
         it("should randomize the order of the deck", () => {
-            const game = new Game();
             game.populateDeck();
             const originalDeck = [...game.deck];
             game.shuffle();
@@ -73,7 +68,6 @@ describe("Game", () => {
     });
     describe("deal", () => {
         it("should distribute cards to players", () => {
-            const game = new Game();
             game.populateDeck();
             game.shuffle();
             game.addPlayer({ name: "test" });
@@ -88,11 +82,9 @@ describe("Game", () => {
     });
     describe("start", () => {
         it("should have a method to start the game", () => {
-            const game = new Game();
             expect(game.start).toBeDefined();
         });
         it("should call the populateDeck, shuffle, deal and set the lead player to the first player in the array", () => {
-            const game = new Game();
             game.addPlayer({ name: "test" });
             game.populateDeck = jest.fn();
             game.shuffle = jest.fn();
@@ -106,17 +98,14 @@ describe("Game", () => {
     });
     describe("addPlayer", () => {
         it("should have a method to add players", () => {
-            const game = new Game();
             expect(game.addPlayer).toBeDefined();
         });
         it("should add players to the players array", () => {
-            const game = new Game();
             const player = { name: "test" };
             game.addPlayer(player);
             expect(game.players).toEqual([player]);
         });
         it("should not add anything other than players to the players array", () => {
-            const game = new Game();
             const player = { name: "test" };
             game.addPlayer(player);
             expect(game.players).toEqual([player]);
@@ -128,7 +117,6 @@ describe("Game", () => {
             expect(game.players).toEqual([player]);
         });
         it("should not allow duplicate players", () => {
-            const game = new Game();
             const player = { name: "test" };
             const player2 = { name: "test", hand: [] };
             game.addPlayer(player);
@@ -139,11 +127,9 @@ describe("Game", () => {
     });
     describe("isGameOver", () => {
         it("should have a method to determine if the game is over", () => {
-            const game = new Game();
             expect(game.isGameOver).toBeDefined();
         });
         it("should return true if all but one player has no cards", () => {
-            const game = new Game();
             game.addPlayer({ name: "test" });
             game.addPlayer({ name: "test2" });
             game.addPlayer({ name: "test3" });
@@ -157,7 +143,6 @@ describe("Game", () => {
     });
     describe("getDecisionCard", () => {
         it("should return the first card of the lead player's hand", () => {
-            const game = new Game();
             game.addPlayer({ name: "test" });
             game.addPlayer({ name: "test2" });
             game.start();
@@ -165,22 +150,8 @@ describe("Game", () => {
             expect(game.getDecisionCard()).toEqual(game.players[0].hand[0]);
         });
     });
-    describe("chooseAttribute", () => {
-        it("takes the attribute name and sets the round attribute to that attribute", () => {
-            const game = new Game();
-            game.chooseAttribute("syntax");
-            expect(game.roundAttribute).toEqual("syntax");
-        });
-        it("should throw an error if the attribute is not a string", () => {
-            const game = new Game();
-            expect(() => game.chooseAttribute(1)).toThrow(
-                "Attribute must be a string"
-            );
-        });
-    });
     describe("getActivePlayers", () => {
         it("returns the players who have cards in their hand", () => {
-            const game = new Game();
             game.addPlayer({ name: "test" });
             game.addPlayer({ name: "test2" });
             game.start();
@@ -188,82 +159,68 @@ describe("Game", () => {
             expect(game.getActivePlayers()).toEqual([game.players[1]]);
         });
     });
-    // describe("returnPreviousRoundResults", () => {
-    //     it("returns the previous round results", () => {
-    //         const game = new Game();
-    //         game.addPlayer({ name: "test" });
-    //         game.addPlayer({ name: "test2" });
-    //         game.start();
-    //         game.players[0].hand[0].syntax = 2;
-    //         game.players[1].hand[0].syntax = 1;
-    //         game.chooseAttribute("syntax");
-    //         game.playRound();
-    //         expect(game.roundHistory.length).toEqual(1);
-    //         expect(game.roundHistory[0].turns.length).toEqual(2);
-    //         expect(game.roundHistory[0].resultString).toEqual(`test wins!`);
-    //     });
-    // });
-
-    describe("playRound", () => {
-        it("adds the cards to a winner's hand and empties the pot", () => {
-            const game = new Game();
+    describe("returnPreviousRoundResults", () => {
+        it("returns the previous round results", () => {
             game.addPlayer({ name: "test" });
             game.addPlayer({ name: "test2" });
             game.start();
-            const player1HandLengthBefore = game.players[0].hand.length;
-            const player2HandLengthBefore = game.players[1].hand.length;
             game.players[0].hand[0].syntax = 2;
             game.players[1].hand[0].syntax = 1;
-            game.chooseAttribute("syntax");
-            game.playRound();
-            const player1HandLengthAfter = game.players[0].hand.length;
-            const player2HandLengthAfter = game.players[1].hand.length;
-            expect(player1HandLengthAfter).toEqual(player1HandLengthBefore + 1);
-            expect(player2HandLengthAfter).toEqual(player2HandLengthBefore - 1);
-            expect(game.pot).toEqual([]);
+            game.playRound("syntax");
+            expect(game.roundHistory.length).toEqual(1);
+            expect(game.roundHistory[0].turns.length).toEqual(2);
+            expect(game.roundHistory[0].resultString).toEqual(`test wins!`);
         });
-        describe("in the case of a draw", () => {
-            let game;
-            let player1HandLengthBefore;
-            let player1HandLengthAfter;
-            let player2HandLengthBefore;
-            let player2HandLengthAfter;
-            beforeEach(() => {
-                game = new Game();
-                game.addPlayer({ name: "test" });
-                game.addPlayer({ name: "test2" });
-                game.start();
-                player1HandLengthBefore = game.players[0].hand.length;
-                player2HandLengthBefore = game.players[1].hand.length;
-                game.players[0].hand[0].syntax = 1;
-                game.players[1].hand[0].syntax = 1;
-                game.chooseAttribute("syntax");
-                game.playRound();
-                player1HandLengthAfter = game.players[0].hand.length;
-                player2HandLengthAfter = game.players[1].hand.length;
-            });
-            it("adds the cards to the game pot", () => {
-                expect(player1HandLengthAfter).toEqual(
-                    player1HandLengthBefore - 1
-                );
-                expect(player2HandLengthAfter).toEqual(
-                    player2HandLengthBefore - 1
-                );
-                expect(game.pot.length).toEqual(2);
-            });
-            it("attributes the pot plus the new round to the winner", () => {
-                game.players[0].hand[0].syntax = 2;
-                game.players[1].hand[0].syntax = 1;
-                game.chooseAttribute("syntax");
-                game.playRound();
-                expect(game.players[0].hand.length).toEqual(
-                    player1HandLengthBefore + 2
-                );
-                expect(game.players[1].hand.length).toEqual(
-                    player2HandLengthBefore - 2
-                );
-                expect(game.pot).toEqual([]);
-            });
+    });
+
+    describe("playRound", () => {
+        it("takes the first card from each player's hand and attributes them to the winner", () => {
+            game.addPlayer({ name: "test" });
+            game.addPlayer({ name: "test2" });
+            game.start();
+            player1HandLength = game.players[0].hand.length;
+            player2HandLength = game.players[1].hand.length;
+            game.players[0].hand[0].syntax = 2;
+            game.players[1].hand[0].syntax = 1;
+            game.playRound("syntax");
+
+            expect(game.players[0].hand.length).toEqual(player1HandLength + 1);
+            expect(game.players[1].hand.length).toEqual(player2HandLength - 1);
+        });
+        it("adds the cards to the pot in the case of a draw", () => {
+            game.addPlayer({ name: "test" });
+            game.addPlayer({ name: "test2" });
+            game.start();
+            game.players[0].hand[0].syntax = 1;
+            game.players[1].hand[0].syntax = 1;
+            player1Card = game.players[0].hand[0];
+            player2Card = game.players[1].hand[0];
+            game.playRound("syntax");
+            expect(game.pot).toEqual([player1Card, player2Card]);
+        });
+        it("an element to the roundHistory array", () => {
+            game.addPlayer({ name: "test" });
+            game.addPlayer({ name: "test2" });
+            game.start();
+            game.players[0].hand[0].syntax = 2;
+            game.players[1].hand[0].syntax = 1;
+            game.playRound("syntax");
+            expect(game.roundHistory.length).toEqual(1);
+        });
+        it("throws an error if no attribute is passed", () => {
+            game.addPlayer({ name: "test" });
+            game.addPlayer({ name: "test2" });
+            game.start();
+            expect(() => game.playRound()).toThrow("must choose an attribute");
+        });
+        it("clears the pot if there's a winner", () => {
+            game.addPlayer({ name: "test" });
+            game.addPlayer({ name: "test2" });
+            game.start();
+            game.players[0].hand[0].syntax = 2;
+            game.players[1].hand[0].syntax = 1;
+            game.playRound("syntax");
+            expect(game.pot).toEqual([]);
         });
     });
 });

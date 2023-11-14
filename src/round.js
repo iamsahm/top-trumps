@@ -17,20 +17,34 @@ class Round {
         this.roundAttribute = attribute;
     }
     defineWinner() {
-        if (typeof attribute !== "string") {
+        if (typeof this.roundAttribute !== "string") {
             throw new Error("Attribute must be a string");
         }
         const sortedTurns = this.turns.sort((a, b) => {
-            return b.card[attribute] - a.card[attribute];
+            return b.card[this.roundAttribute] - a.card[this.roundAttribute];
         });
-        if (sortedTurns[0].card[attribute] === sortedTurns[1].card[attribute]) {
-            return false;
+        if (
+            sortedTurns[0].card[this.roundAttribute] ===
+            sortedTurns[1].card[this.roundAttribute]
+        ) {
+            return;
         } else {
-            return sortedTurns[0].player;
+            this.roundWinner = sortedTurns[0].player;
         }
     }
     returnRoundPot() {
         return this.turns.map((turn) => turn.card);
+    }
+
+    returnHistoryEntry() {
+        return {
+            turns: this.turns,
+            winner: this.roundWinner,
+            roundAttribute: this.roundAttribute,
+            resultString: this.roundWinner
+                ? `${this.roundWinner} wins!`
+                : "Tie! The cards are in the pot for the next round.",
+        };
     }
 }
 
