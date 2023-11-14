@@ -1,6 +1,6 @@
 :root {
     --vt-c-white: #ffffff;
-    --vt-c-blue-washed: #e5e5f7;
+    --vt-c-green-washed: #e5f7f0;
     --vt-c-metal: #b0c4de;
     --vt-c-grass: #4b7054;
     --vt-c-black: #181818;
@@ -11,7 +11,7 @@
     --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
     --vt-c-text-dark-1: var(--vt-c-white);
     --vt-box-shadow: 0px 0.2rem 0.5rem rgba(0, 0, 0, 0.2);
-    --color-background-card: var(--vt-c-blue-washed);
+    --color-background-card: var(--vt-c-green-washed);
     --color-background-light: var(--vt-c-white);
     --color-background-dark: var(--vt-c-grass);
     --color-border: var(--vt-c-divider-light-2);
@@ -167,6 +167,24 @@ button:hover {
     transition: background-color 0.5s, border-color 0.5s, color 0.5s;
     white-space: wrap;
     box-shadow: var(--vt-box-shadow);
+}
+
+.previous-round-card {
+    margin: 2rem 1rem;
+    width: 50%;
+}
+#round-results h2 {
+    margin: 1rem;
+}
+.previous-round-cards {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+dialog#round-results {
+    display: inline;
+    margin: auto;
 }
 
 #lead-player-output {

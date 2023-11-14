@@ -147,17 +147,14 @@ function showRoundResults() {
     roundResultsDiv.appendChild(previousRoundCardsDiv);
 
     game.roundHistory[0].turns.forEach((turn) => {
-        console.log(turn);
         const cardDiv = document.createElement("div");
         cardDiv.classList.add("previous-round-card");
         cardDiv.id = `${turn.player}-card`;
         previousRoundCardsDiv.appendChild(cardDiv);
-
         const previousRoundCardHeader = document.createElement("h3");
-        previousRoundCardHeader.textContent = turn.player;
-        cardDiv.appendChild(previousRoundCardHeader);
-
+        previousRoundCardHeader.textContent = `${turn.player}'s card`;
         showCard(turn.card, `${turn.player}-card`);
+        cardDiv.appendChild(previousRoundCardHeader);
     });
     roundResultsDiv.addEventListener("click", () => {
         roundResultsDiv.remove();
