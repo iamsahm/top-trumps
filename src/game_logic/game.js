@@ -1,4 +1,4 @@
-const languages = require("./data/languages.json");
+const languages = require("../data/languages.json");
 const Card = require("./card");
 const Round = require("./round");
 
@@ -9,7 +9,6 @@ class Game {
         this.gameOver = false;
         this.leadPlayer = null;
         this.pot = [];
-        this.roundAttribute = null;
         this.roundHistory = [];
     }
     addPlayer(player) {
@@ -67,29 +66,27 @@ class Game {
         );
         return decisionMaker.hand[0];
     }
-    chooseAttribute(attribute) {
-        if (typeof attribute == "string") {
-            this.roundAttribute = attribute;
-        } else {
-            throw new Error("Attribute must be a string");
-        }
-    }
 
-    playRound() {
+    playRound(attribute) {
         const round = new Round();
-        const activePlayers = this.players.filter(
-            (player) => player.hand.length > 0
-        );
+        const activePlayers = this.getActivePlayers();
         activePlayers.forEach((player) => {
             const card = player.hand.shift();
             round.addTurn(player.name, card);
         });
-        const roundWinner = round.defineWinner(this.roundAttribute);
+        if (attribute) {
+            round.setRoundAttribute(attribute);
+        } else {
+            throw new Error("must choose an attribute");
+        }
+        round.defineWinner();
+        this.roundHistory.push(round.returnHistoryEntry());
+
         this.pot = this.pot.concat(round.returnRoundPot());
-        if (roundWinner) {
-            this.leadPlayer = roundWinner;
+        if (round.roundWinner) {
+            this.leadPlayer = round.roundWinner;
             const winnerIndex = this.players.findIndex(
-                (player) => player.name === roundWinner
+                (player) => player.name === round.roundWinner
             );
             this.players[winnerIndex].hand = this.players[
                 winnerIndex
@@ -113,6 +110,9 @@ class Game {
         this.players = [];
         this.gameOver = false;
         this.leadPlayer = null;
+        this.pot = [];
+        this.roundAttribute = null;
+        this.roundHistory = [];
     }
 }
 

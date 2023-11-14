@@ -1,4 +1,4 @@
-const Round = require("../src/round");
+const Round = require("../src/game_logic/round");
 
 let round;
 

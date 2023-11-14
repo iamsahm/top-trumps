@@ -1,8 +1,15 @@
-const Game = require("./game");
-import { showCard, adjustFontSize } from "./cardRenders";
+const Game = require("./game_logic/game");
+import { showCard, adjustFontSize } from "./DOM_logic/cardRenders";
+import {
+    createGameSetupDialogue,
+    createGamePlayArea,
+} from "./DOM_logic/gameSetup";
 import "./styles.css";
 
-const game = new Game();
+let game = new Game();
+
+createGameSetupDialogue();
+createGamePlayArea();
 
 const addPlayerForm = document.getElementById("add-player-form");
 const playerNameInput = document.getElementById("player-name");
@@ -60,8 +67,13 @@ function runRound() {
         turnStatus.textContent = `It's ${game.leadPlayer}'s turn, choose your attribute!`;
         turnStatus.style.display = "block";
     } else {
-        gameResultsDiv.textContent = `Game over! ${game.leadPlayer} wins!`;
-        leadPlayerOutputDiv.style.display = "none";
+        document.body.innerHTML = "";
+        const gameOverDiv = document.createElement("div");
+        gameOverDiv.classList.add("game-over");
+        const gameOverHeader = document.createElement("h1");
+        gameOverHeader.textContent = `Game Over! ${game.players[0].name} wins!`;
+        gameOverDiv.appendChild(gameOverHeader);
+        document.body.appendChild(gameOverDiv);
     }
 }
 
@@ -73,9 +85,8 @@ function activateAttributeButtons(card, divID) {
         const attributeButton = document.createElement("button");
         attributeButton.classList.add("attribute-button", "sheen");
         attributeButton.addEventListener("click", () => {
-            game.chooseAttribute(attribute);
+            game.playRound(attribute);
             showOtherCards();
-            game.playRound();
             runRound();
         });
         const attributeNameDiv = document.createElement("div");
@@ -109,7 +120,7 @@ function updatePlayerScoreResults() {
 const resetGame = document.getElementById("reset-game");
 resetGame.addEventListener("click", () => {
     //TODO: this doesn't completely reset the game, need to reinitialize the html
-    game.reset();
+    game = new Game();
     gameSetup.style.display = "flex";
     document.getElementById("end-game-setup").style.display = "none";
     gamePlayAreaDiv.style.display = "none";

@@ -126,7 +126,12 @@ div#player-list {
 #game-setup input {
     margin: 0.5rem;
 }
-
+.game-over {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 33vh;
+}
 button {
     background: var(--color-background-light);
     border: none;

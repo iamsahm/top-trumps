@@ -1,4 +1,4 @@
-const Game = require("../src/game");
+const Game = require("../src/game_logic/game");
 const languages = require("../src/data/languages.json");
 let game;
 describe("Game", () => {

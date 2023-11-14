@@ -1,8 +1,17 @@
+import { createDiv } from "../DOMtools.js";
+
 export function showCard(card, divName) {
-    const container = document.getElementById(divName);
+    const container = createDiv(
+        "card-container",
+        `${divName}-card-container`,
+        divName,
+        // no text content
+        true,
+        true
+    );
     container.innerHTML = "";
     const cardDiv = document.createElement("div");
-    cardDiv.classList.add("card", `${divName}-card}`);
+    cardDiv.classList.add("card", `${divName}-card`);
     const title = document.createElement("h3");
     title.textContent = card.name;
     title.classList.add("card-title");
@@ -40,6 +49,6 @@ export function adjustFontSize(containerID) {
             .getComputedStyle(container, null)
             .getPropertyValue("font-size");
         let fontSize = parseFloat(style);
-        container.style.fontSize = fontSize - 2 + "px";
+        container.style.fontSize = fontSize - 1 + "px";
     }
 }
