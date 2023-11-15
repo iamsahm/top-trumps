@@ -64,7 +64,6 @@ export function createGamePlayArea() {
     handDiv.id = "hand";
     turnStatusDiv.id = "turn-status";
     resetAndPlayerStatusContainer.id = "reset-and-player-status-container";
-    playerStatusDiv.id = "player-status";
     resetGameButton.id = "reset-game";
     resetGameButton.textContent = "Reset Game";
     gameResultsDiv.id = "game-results";
@@ -75,12 +74,11 @@ export function createGamePlayArea() {
     leadPlayerOutput.appendChild(turnStatusDiv);
     gamePlayArea.appendChild(leadPlayerOutput);
 
-    resetAndPlayerStatusContainer.appendChild(playerStatusDiv);
     resetAndPlayerStatusContainer.appendChild(resetGameButton);
+    resetAndPlayerStatusContainer.appendChild(gameResultsDiv);
     gamePlayArea.appendChild(resetAndPlayerStatusContainer);
 
     gameResultsDiv.appendChild(nonLeaderCardsDiv);
-    gamePlayArea.appendChild(gameResultsDiv);
 
     return gamePlayArea;
 }

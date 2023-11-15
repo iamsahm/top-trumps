@@ -65,7 +65,6 @@ function runRound() {
         activateAttributeButtons(game.getDecisionCard(), "hand");
 
         turnStatus.textContent = `It's ${game.leadPlayer}'s turn, choose an attribute! If it's higher than the attribute on the other player's first cards, you win the round`;
-        turnStatus.style.display = "block";
     } else {
         document.body.innerHTML = "";
         const gameOverDiv = document.createElement("div");

@@ -98,11 +98,45 @@ body {
     background-size: 38px 67px;
     background-position: 0 0, 0 0, 19px 33px, 19px 33px, 0 0, 19px 33px;
 }
+button {
+    background: var(--color-background-light);
+    border: none;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--border-radius-medium);
+    color: var(--color-text);
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    text-decoration: none;
+    transition: var(--transition-short);
+    user-select: none;
+    white-space: nowrap;
+}
+.card {
+    background: var(--color-background-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-small);
+    color: var(--color-text);
+    padding: 0.5rem 1rem;
+    text-align: center;
+    transition: background-color 0.5s, border-color 0.5s, color 0.5s;
+    white-space: wrap;
+    box-shadow: var(--vt-box-shadow);
+}
 
+div#game-play-area {
+    display: none;
+}
 #game-setup {
     position: absolute;
-    top: 5rem;
-    width: 100%;
+    top: 30vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -126,30 +160,13 @@ div#player-list {
 }
 #game-setup input {
     margin: 0.5rem;
+    padding: 0.5rem;
 }
 .game-over {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 33vh;
-}
-button {
-    background: var(--color-background-light);
-    border: none;
-    position: relative;
-    overflow: hidden;
-    border-radius: var(--border-radius-medium);
-    color: var(--color-text);
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.5rem;
-    padding: 0.5rem 1rem;
-    text-align: center;
-    text-decoration: none;
-    transition: var(--transition-short);
-    user-select: none;
-    white-space: nowrap;
 }
 
 button:hover {
@@ -158,34 +175,29 @@ button:hover {
     color: var(--color-text-hover);
 }
 
-.card {
-    background: var(--color-background-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--border-radius-small);
-    color: var(--color-text);
-    padding: 0.5rem 1rem;
-    text-align: center;
-    transition: background-color 0.5s, border-color 0.5s, color 0.5s;
-    white-space: wrap;
-    box-shadow: var(--vt-box-shadow);
+button:focus,
+button:active {
+    background-color: var(--color-background-dark);
+    outline: none;
 }
 
-.previous-round-card {
-    margin: 2rem 1rem;
-    width: 50%;
-}
 #round-results h2 {
     margin: 1rem;
 }
 .previous-round-cards {
     display: flex;
-    align-items: center;
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.previous-round-card {
+    flex: 0 0 calc(33.33% - 2rem);
+    margin: 1rem;
 }
 
 dialog#round-results {
-    display: inline;
     margin: auto;
+    width: 80%;
 }
 
 #lead-player-output {
@@ -195,6 +207,7 @@ dialog#round-results {
     align-items: center;
     margin-left: 1rem;
     width: 100%;
+    height: 80vh;
 }
 
 div#hand {
@@ -203,7 +216,6 @@ div#hand {
     margin: 0.5em;
 }
 div#turn-status {
-    display: none;
     padding: 0.5em;
     background: var(--color-background-soft);
     margin: 2em 0;
@@ -309,6 +321,7 @@ p.fact {
     justify-content: center;
     white-space: normal;
     overflow: hidden;
+    font-size: 0.7rem;
 }
 
 li.lost {
@@ -357,6 +370,6 @@ button:focus {
 @media (width < 990px) {
     body {
         /* set the base font size to 20px */
-        font-size: 25px;
+        /* font-size: 25px; */
     }
 }
