@@ -156,6 +156,10 @@ function showRoundResults() {
         showCard(turn.card, `${turn.player}-card`);
         cardDiv.appendChild(previousRoundCardHeader);
     });
+    const notifierDiv = document.createElement("div");
+    notifierDiv.classList.add("notifier");
+    roundResultsDiv.appendChild(notifierDiv);
+    notifierDiv.textContent = "Click anywhere to continue";
     roundResultsDiv.addEventListener("click", () => {
         roundResultsDiv.remove();
     });
