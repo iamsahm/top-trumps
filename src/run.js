@@ -112,7 +112,7 @@ function updatePlayerScoreResults() {
     gameResultsDiv.innerHTML = "";
     const playerScoresDiv = document.createElement("div");
     playerScoresDiv.classList.add("player-scores");
-    playerScoresDiv.innerHTML = "Player scores:";
+    playerScoresDiv.innerHTML = "Cards in hand:";
     game.players.forEach((player) => {
         const listItem = document.createElement("li");
         listItem.textContent = `${player.name}: ${player.hand.length}`;
