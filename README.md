@@ -25,13 +25,10 @@ It's written in node and packaged with webpack. The tests are written in jest.
     -   of a user-input form for card updates
 -   Write the game logic
     -   ~~Create a deck of cards~~
-    -   Shuffle the deck~~
-    -   Deal the cards~~
+    -   ~~Shuffle the deck~~
+    -   ~~Deal the cards~~
     -   ~~Create a player~~
     -   Create a computer player
-    -   Create a board
-    -   Create a game
-    -   Create a game flow
 -   Style the board
     -   Make a user interface
     -   Add animations
@@ -41,11 +38,12 @@ It's written in node and packaged with webpack. The tests are written in jest.
 
 ### Wins
 
-Game logic seems to be working ok!
+Game logic seems to be working!
 
 ### Blockers
 
 ~~I'm not sure how to manage the DOM update. I think I can probably manipulate it directly and add/remove elements for different stages of the game but i'll need to test it thoroughly and make sure i'm not missing any game logic this way.~~
+~~Manipulating existing HTML and then re-adding it when I need to update the DOM isn't working. I'll add all the HTML to the body tag from the start and then manipulate it from there.~~
 
 ## Future Features
 
