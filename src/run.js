@@ -70,8 +70,16 @@ function runRound() {
         const gameOverDiv = document.createElement("div");
         gameOverDiv.classList.add("game-over");
         const gameOverHeader = document.createElement("h1");
-        gameOverHeader.textContent = `Game Over! ${game.players[0].name} wins!`;
+        gameOverHeader.innerHTML = `Game Over! ${game.players[0].name} wins!`;
         gameOverDiv.appendChild(gameOverHeader);
+        const playAgainButton = document.createElement("button");
+        playAgainButton.textContent = "Play Again";
+        playAgainButton.id = "play-again";
+        gameOverDiv.appendChild(playAgainButton);
+
+        playAgainButton.addEventListener("click", () => {
+            location.reload();
+        });
         document.body.appendChild(gameOverDiv);
     }
 }

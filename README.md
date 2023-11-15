@@ -6,14 +6,17 @@ This is a simple top trumps game based on programming languages. The deck is 32 
 
 ## Installation
 
+The game is hosted [here](https://devtoptrumps.onrender.com/) but if you want to run it locally:
+
 1. Clone the repository
 2. Run `npm install` to install dependencies
-3. Run `npm run build` to build the page
-4. Open the index.html with live server
+3. Run `npm run start` to start the webpack server. It should open automatically in your browser
 
 ## Technologies
 
 It's written in node and packaged with webpack. The tests are written in jest.
+
+You can run the tests with `npm run test`
 
 ## Process
 
@@ -30,7 +33,7 @@ It's written in node and packaged with webpack. The tests are written in jest.
     -   ~~Create a player~~
     -   Create a computer player
 -   Style the board
-    -   Make a user interface
+    -   ~~Make a user interface~~
     -   Add animations
     -   Highlight/move forward the hover card
 
@@ -45,7 +48,7 @@ Game logic seems to be working!
 ~~I'm not sure how to manage the DOM update. I think I can probably manipulate it directly and add/remove elements for different stages of the game but i'll need to test it thoroughly and make sure i'm not missing any game logic this way.~~
 ~~Manipulating existing HTML and then re-adding it when I need to update the DOM isn't working. I'll add all the HTML to the body tag from the start and then manipulate it from there.~~
 
--   Card components are not taking up the right space, should make them a specific aspect ratio and then change the container size depending on the viewport size.
+-   ~~Card components are not taking up the right space, should make them a specific aspect ratio and then change the container size depending on the viewport size.~~
 -   I should test the run file, need to research how to test html manipulation
 
 ## Future Features

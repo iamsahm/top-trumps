@@ -166,7 +166,11 @@ div#player-list {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 33vh;
+    margin: 33vh;
+    flex-direction: column;
+}
+button#play-again {
+    margin: 3rem;
 }
 
 button:hover {
