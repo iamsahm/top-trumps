@@ -45,6 +45,9 @@ Game logic seems to be working!
 ~~I'm not sure how to manage the DOM update. I think I can probably manipulate it directly and add/remove elements for different stages of the game but i'll need to test it thoroughly and make sure i'm not missing any game logic this way.~~
 ~~Manipulating existing HTML and then re-adding it when I need to update the DOM isn't working. I'll add all the HTML to the body tag from the start and then manipulate it from there.~~
 
+-   Card components are not taking up the right space, should make them a specific aspect ratio and then change the container size depending on the viewport size.
+-   I should test the run file, need to research how to test html manipulation
+
 ## Future Features
 
 -   Add a user-input form for card updates

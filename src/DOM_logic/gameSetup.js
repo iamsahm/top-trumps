@@ -1,5 +1,5 @@
 export function createGameSetupDialogue() {
-    const dialogue = document.createElement("dialogue");
+    const dialogue = document.createElement("dialog");
     const welcomeDiv = document.createElement("div");
     const h1 = document.createElement("h1");
     const welcomeP = document.createElement("p");

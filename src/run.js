@@ -51,7 +51,7 @@ const turnStatus = document.getElementById("turn-status");
 
 endSetupButton.addEventListener("click", () => {
     game.start();
-    gameSetup.style.display = "none";
+    gameSetup.remove();
     gamePlayAreaDiv.style.display = "flex";
     runRound();
 });
@@ -119,17 +119,10 @@ function updatePlayerScoreResults() {
 
 const resetGame = document.getElementById("reset-game");
 resetGame.addEventListener("click", () => {
-    game = new Game();
-    gameSetup.style.display = "flex";
-    document.getElementById("end-game-setup").style.display = "none";
-    gamePlayAreaDiv.style.display = "none";
-    updatePlayerList();
-    const hand = document.getElementById("hand");
-    hand.innerHTML = "";
+    location.reload();
 });
 
 function showRoundResults() {
-    // if the div already exists, clear the inner html
     const existingRoundResultsDiv = document.getElementById("round-results");
     if (existingRoundResultsDiv) {
         existingRoundResultsDiv.innerHTML = "";
