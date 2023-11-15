@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
 :root {
     --vt-c-white: #ffffff;
     --vt-c-green-washed: #e5f7f0;
@@ -26,12 +32,6 @@
     --border-radius-small: 0.25rem;
     --border-radius-medium: 0.5rem;
     list-style: none;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    text-align: center;
 }
 
 body {
@@ -126,6 +126,14 @@ button {
     transition: background-color 0.5s, border-color 0.5s, color 0.5s;
     white-space: wrap;
     box-shadow: var(--vt-box-shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    aspect-ratio: 5/7;
+}
+
+#hand .card {
+    width: 25rem;
 }
 
 div#game-play-area {
@@ -205,20 +213,23 @@ dialog#round-results {
 }
 
 #lead-player-output {
+    position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-left: 1rem;
+    margin-top: 10vh;
     width: 100%;
     height: 80vh;
 }
 
-div#hand {
-    width: 18rem;
-    height: 27rem;
-    margin: 0.5em;
+#hand {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
 div#turn-status {
     padding: 0.5em;
     background: var(--color-background-soft);

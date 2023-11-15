@@ -54,6 +54,10 @@ Game logic seems to be working!
 ## Future Features
 
 -   Add a user-input form for card updates
+    -   make a function that opens the languages json
+    -   make a function that gets a card from the json
+    -   make a function that updates the card in the json
+    -   make a function that saves the json
 -   Add a user-input form for adding new cards
 -   Add a vote feature for card changes?
 -   Show the played cards in the round
