@@ -47,7 +47,6 @@ export function createGameSetupDialogue() {
 document.body.appendChild(createGameSetupDialogue());
 
 export function createGamePlayArea() {
-    // Create elements
     const gamePlayArea = document.createElement("div");
     const leadPlayerOutput = document.createElement("div");
     const handDiv = document.createElement("div");
@@ -58,7 +57,6 @@ export function createGamePlayArea() {
     const gameResultsDiv = document.createElement("div");
     const nonLeaderCardsDiv = document.createElement("div");
 
-    // Set attributes
     gamePlayArea.id = "game-play-area";
     leadPlayerOutput.id = "lead-player-output";
     handDiv.id = "hand";
