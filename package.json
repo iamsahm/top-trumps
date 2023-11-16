@@ -1,13 +1,14 @@
 {
     "scripts": {
-        "test": "npm run test:unit && npm run test:e2e",
+        "test": "npm run test:unit && npm run ci:prod",
         "test:watch": "jest --watch",
         "start": "webpack serve --open",
         "build": "webpack",
         "cypress:open": "cypress open",
         "start:server": "webpack serve --open",
         "test:e2e": "cypress run",
-        "test:unit": "jest"
+        "test:unit": "jest",
+        "ci:prod": "start-server-and-test start http://localhost:8080 test:e2e"
     },
     "dependencies": {
         "jest": "^29.7.0"
@@ -18,8 +19,8 @@
         "css-loader": "^6.8.1",
         "cypress": "^13.5.1",
         "html-webpack-plugin": "^5.5.3",
+        "start-server-and-test": "^2.0.3",
         "style-loader": "^3.3.3",
-        "wait-on": "^7.2.0",
         "webpack": "^5.89.0",
         "webpack-cli": "^5.1.4",
         "webpack-dev-server": "^4.15.1"

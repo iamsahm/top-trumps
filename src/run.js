@@ -24,6 +24,7 @@ function updatePlayerList() {
         playerList.style.display = "flex";
         const listItem = document.createElement("li");
         listItem.textContent = player.name;
+        listItem.setAttribute("data-cy", `${player.name}-list-item`);
         playerList.appendChild(listItem);
     });
 }

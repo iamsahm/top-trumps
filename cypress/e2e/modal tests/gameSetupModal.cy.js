@@ -14,7 +14,7 @@ describe("game setup modal", () => {
         cy.get("#player-name").type("Player 1");
         cy.get("#add-player-form").submit();
         cy.get("#player-list").should("contain", "Player list:");
-        cy.get("#player-list").should("contain", "Player 1");
+        cy.get('[data-cy="Player 1-list-item"]').click();
     });
     it("doesn't add a player if the name is blank", () => {
         cy.get("#add-player-form").submit();
